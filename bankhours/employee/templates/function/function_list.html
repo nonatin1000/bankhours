@@ -1,0 +1,14 @@
+<h1>Funções</h1>
+<ul>
+{% for function in object_list %}
+    <li><a href="{% url 'employee:function_update' function.id %}">Editar</a><a href="{% url 'employee:function_delete' function.id %}">Excluir</a> {{ function.id }} - {{ function.name }}</li>
+{% empty %}
+    <li>Nenhum função cadastrada.</li>
+{% endfor %}
+</ul>
+<p>
+  <a href="{% url 'employee:function_add' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Adicionar
+  </a>
+</p>
