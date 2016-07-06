@@ -1,0 +1,9 @@
+<h1>Departamento</h1>
+<p><label>Nome:</label> {{ object.name }}</p>
+<p><label>Descrição: </label> {{ object.description }}</p>
+<p>
+  <a href="{% url 'employee:department_list' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Voltar
+  </a>
+</p>

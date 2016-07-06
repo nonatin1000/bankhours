@@ -1,0 +1,14 @@
+<h1>Departamentos</h1>
+<ul>
+{% for department in object_list %}
+    <li><a href="{% url 'employee:department_details' department.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'employee:department_edit' department.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'employee:department_delete' department.id %}">Excluir</a> {{ department.id }} - {{ department.name }}</li>
+{% empty %}
+    <li>Nenhum departamento cadastrada.</li>
+{% endfor %}
+</ul>
+<p>
+  <a href="{% url 'employee:department_add' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Adicionar
+  </a>
+</p>
