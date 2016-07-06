@@ -22,9 +22,9 @@ class Function(AuditModel):
 		return name
 
 	def get_absolute_url(self):
-		return reverse('employee:function_list')
+		return reverse('employee:list')
 
 	class Meta:
 		verbose_name = 'Função'
 		verbose_name_plural = 'Funções'
-		ordering = ['name']
+		ordering = ['-id']

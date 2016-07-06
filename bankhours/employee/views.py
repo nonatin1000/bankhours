@@ -12,28 +12,28 @@ from .forms import *
 
 class FunctionList(ListView):
 	
-	template_name = 'function/function_list.html'
+	template_name = 'function/list.html'
 	model = Function
 
 class FunctionCreate(CreateView):
 
 	model = Function 
-	template_name = 'function/function_add.html'
+	template_name = 'function/add.html'
 	form_class = FunctionForm
 
 class FunctionUpdate(UpdateView):
 
 	model = Function
-	template_name = 'function/function_add.html'
+	template_name = 'function/add.html'
 	form_class = FunctionForm
 
 class FunctionDetail(DetailView):
 
 	model = Function
-	template_name = 'function/function_details.html'
+	template_name = 'function/details.html'
 
 class FunctionDelete(DeleteView):
 
 	model = Function
-	success_url = reverse_lazy('employee:function_list')
-	template_name = 'function/function_delete.html'
+	success_url = reverse_lazy('employee:list')
+	template_name = 'function/delete.html'
