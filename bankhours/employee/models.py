@@ -2,8 +2,6 @@
 
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
 
 class AuditModel(models.Model):
 	# Audit Fields
@@ -18,7 +16,7 @@ class Function(AuditModel):
 	description = models.TextField('Descrição', blank=True, null=True)
 
 	def __str__(self):
-		return name
+		return self.name
 
 	def get_absolute_url(self):
 		return reverse('employee:function_list')
@@ -42,39 +40,6 @@ class Department(AuditModel):
 		verbose_name = 'Departamento'
 		verbose_name_plural = 'Departamentos'
 		ordering = ['-id']
-
-class Employee(AuditModel):
-
-	name = models.CharField('Nome Completo', max_length=100, help_text='*')
-	MALE = 'M'
-	FEMALE  = 'F'
-	SEX_CHOICES = ((MALE, 'Masculino'), (FEMALE, 'Feminino'),)
-	sex = models.CharField('Sexo', max_length=1, choices=SEX_CHOICES, default=FEMALE, help_text='*')
-	
-	def is_upperclass(self):
-		return self.sex in (self.MALE, self.FEMALE)
-
-	MARRIED = 'CASADO'
-	SINGLE = 'SOLTEIRO'
-	SEPARATED = 'SEPARADO'
-	WINDOWER = 'VIUVO'
-	DIVORCED = 'DIVORCIADO'
-	MARITAL_STATUS_CHOICES = ((MARRIED, 'Casado'), (SINGLE, 'Solteiro'), (SEPARATED, 'Separado'), (WINDOWER, 'Viúvo'), (DIVORCED, 'Divorciado'),)
-	marital_status = models.CharField('Estado Cívil', max_length=10, choices=MARITAL_STATUS_CHOICES, default=SINGLE, help_text='*')
-	
-	def is_upperclass(self):
-		return self.marital_status in (self.MARRIED, self.SINGLE, self.SEPARATED, self.WINDOWER, self.DIVORCED)
-
-	birth_date = models.DateField('Data Nascimento', help_text='*')
-	siape = models.IntegerField('Siape', help_text='*')
-	phone = models.CharField('Telefone', max_length=16, blank=True, null=True)
-	email = models.EmailField('E-mail', blank=True, null=True)
-	function = models.ForeignKey(Function, verbose_name='Função', related_name='employees_functions')
-	department = models.ForeignKey(Department, verbose_name='Departamento', related_name='employees_departments')
-	address = GenericRelation('Address')
-
-	def __str__(self): 
-		return self.name
 
 class Address(AuditModel):
 	country = models.CharField('País', max_length=255, default='Brasil')
@@ -114,8 +79,53 @@ class Address(AuditModel):
 	zip_code = models.CharField('CEP', max_length=10, blank=True, null=True)
 	complement = models.CharField('Complemento', max_length=255, blank=True, null=True)
 	reference_point = models.CharField('Ponto de Referência', max_length=255, blank=True, null=True)
+
+class Employee(AuditModel):
+
+	name = models.CharField('Nome Completo', max_length=100, help_text='*')
+	cpf = models.CharField('CPF', max_length=14, help_text='*')
+	rg = models.CharField('RG', max_length=20, help_text='*')
+	MALE = 'M'
+	FEMALE  = 'F'
+	SEX_CHOICES = ((MALE, 'Masculino'), (FEMALE, 'Feminino'),)
+	sex = models.CharField('Sexo', max_length=1, choices=SEX_CHOICES, default=FEMALE, help_text='*')
 	
-	# Generic Relation
-	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-	object_id = models.PositiveIntegerField(db_index=True)
-	content_object = GenericForeignKey('content_type', 'object_id')
+	def is_upperclass(self):
+		return self.sex in (self.MALE, self.FEMALE)
+
+	MARRIED = 'CASADO'
+	SINGLE = 'SOLTEIRO'
+	SEPARATED = 'SEPARADO'
+	WINDOWER = 'VIUVO'
+	DIVORCED = 'DIVORCIADO'
+	MARITAL_STATUS_CHOICES = ((MARRIED, 'Casado'), (SINGLE, 'Solteiro'), (SEPARATED, 'Separado'), (WINDOWER, 'Viúvo'), (DIVORCED, 'Divorciado'),)
+	marital_status = models.CharField('Estado Cívil', max_length=10, choices=MARITAL_STATUS_CHOICES, default=SINGLE, help_text='*')
+	
+	def is_upperclass(self):
+		return self.marital_status in (self.MARRIED, self.SINGLE, self.SEPARATED, self.WINDOWER, self.DIVORCED)
+
+	birth_date = models.DateField('Data Nascimento', help_text='*')
+	siape = models.IntegerField('Siape', help_text='*')
+	phone = models.CharField('Telefone', max_length=16, blank=True, null=True)
+	email = models.EmailField('E-mail', blank=True, null=True)
+	function = models.ForeignKey(Function, verbose_name='Função', related_name='employees_functions', on_delete=models.CASCADE)
+	department = models.ForeignKey(Department, verbose_name='Departamento', related_name='employees_departments', on_delete=models.CASCADE)
+	address = models.ForeignKey(Address, verbose_name='Endereço', related_name='employees_address', on_delete=models.CASCADE)
+
+	def __str__(self): 
+		return self.name
+
+	def get_absolute_url(self):
+		return reverse('employee:employee_list')
+
+	class Meta:
+		verbose_name = 'Funcionario'
+		verbose_name_plural = 'Funcionarios'
+		ordering = ['-id']
+
+# Exclui o endereço depois que o funcionario for excluido
+def post_delete_employee(instance, **kwargs):
+	address = Address.objects.get(pk=instance.address_id)
+	address.delete()
+
+models.signals.post_delete.connect(post_delete_employee, sender=Employee, dispatch_uid='post_delete_employee')

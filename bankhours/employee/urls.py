@@ -14,4 +14,10 @@ urlpatterns = [
     url(r'^department/details/(?P<pk>[0-9]+)/$', DepartmentDetail.as_view(), name='department_details'),
     url(r'^department/edit/(?P<pk>[0-9]+)/$', DepartmentUpdate.as_view(), name='department_edit'),
     url(r'^department/(?P<pk>[0-9]+)/delete/$', DepartmentDelete.as_view(), name='department_delete'),
+    # Employee
+    url(r'^employee/list/$', EmployeeList.as_view(), name='employee_list'),
+    url(r'^employee/add/$', EmployeeCreate.as_view(), name='employee_add'),
+    url(r'^employee/details/(?P<pk>[0-9]+)/$', EmployeeDetails.as_view(), name='employee_details'),
+    url(r'^employee/edit/(?P<pk>[0-9]+)/$', EmployeeUpdate.as_view(), name='employee_edit'),
+    url(r'^employee/(?P<pk>[0-9]+)/delete/$', EmployeeDelete.as_view(), name='employee_delete'),
 ]

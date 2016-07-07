@@ -1,0 +1,28 @@
+<h1>Funcionário</h1>
+<p><label>Nome:</label> {{ object.name }}</p>
+<p><label>CPF: </label> {{ object.cpf }}</p>
+<p><label>RG: </label> {{ object.rg }}</p>
+<p><label>E-mail: </label> {{ object.email }}</p>
+<p><label>Sexo: </label> {{ object.sex }}</p>
+<p><label>Estado Cívil: </label> {{ object.marital_status }}</p>
+<p><label>Data de Nascimento: </label> {{ object.birth_date }}</p>
+<p><label>Siape: </label> {{ object.siape }}</p>
+<p><label>Telefone: </label> {{ object.phone }}</p>
+<p><label>Função: </label> {{ object.function }}</p>
+<p><label>Departamento: </label> {{ object.department }}</p>
+<hr>
+<p><label>País: </label> {{ object.country }}</p>
+<p><label>Estado: </label> {{ object.state }}</p>
+<p><label>Cidade: </label> {{ object.city }}</p>
+<p><label>Bairro: </label> {{ object.neighborhood }}</p>
+<p><label>Logradouro: </label> {{ object.street }}</p>
+<p><label>Número: </label> {{ object.number }}</p>
+<p><label>CEP: </label> {{ object.zip_code }}</p>
+<p><label>Complemento: </label> {{ object.complement }}</p>
+<p><label>Ponto de Referência: </label> {{ object.reference_point }}</p>
+<p>
+  <a href="{% url 'employee:employee_list' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Voltar
+  </a>
+</p>

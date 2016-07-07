@@ -1,0 +1,14 @@
+<h1>Empregados</h1>
+<ul>
+{% for employee in object_list %}
+    <li><a href="{% url 'employee:employee_details' employee.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'employee:employee_edit' employee.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'employee:employee_delete' employee.id %}">Excluir</a> {{ employee.id }} - {{ employee.name }}</li>
+{% empty %}
+    <li>Nenhum funcionário cadastrada.</li>
+{% endfor %}
+</ul>
+<p>
+  <a href="{% url 'employee:employee_add' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Adicionar
+  </a>
+</p>
