@@ -1,0 +1,15 @@
+<h1>Banco de Horas</h1>
+<p><label>Nome:</label> {{ object.employee.name }}</p>
+<p><label>Função:</label> {{ object.employee.function.name }}</p>
+<p><label>Departamento:</label> {{ object.employee.department.name }}</p>
+<p><label>Entrada: </label> {{ object.start_time }}</p>
+<p><label>Saída: </label> {{ object.end_time }}</p>
+<p><label>Horas Acumuladas: </label> {{ object.cumulative_hours }}</p>
+<p><label>Data: </label> {{ object.work_date }}</p>
+<p><label>Observação: </label> {{ object.comment }}</p>
+<p>
+  <a href="{% url 'employee:bank_of_hours_list' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Voltar
+  </a>
+</p>

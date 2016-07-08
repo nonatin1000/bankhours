@@ -1,0 +1,12 @@
+<h1>Compensação</h1>
+<p><label>Nome:</label> {{ object.employee.name }}</p>
+<p><label>Função:</label> {{ object.employee.function.name }}</p>
+<p><label>Departamento: </label> {{ object.employee.department.name }}</p>
+<p><label>Horas Compensadas: </label> {{ object.amount_of_hours }}</p>
+<p><label>Data da Compensação: </label> {{ object.compensated_date }}</p>
+<p>
+  <a href="{% url 'employee:compensation_list' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Voltar
+  </a>
+</p>

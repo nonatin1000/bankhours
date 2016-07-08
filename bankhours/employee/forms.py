@@ -27,3 +27,14 @@ class AddressForm(forms.ModelForm):
 		model = Address
 		fields = '__all__'
 
+class BankOfHoursForm(forms.ModelForm):
+	
+	class Meta:
+		model = BankOfHours
+		fields = '__all__'
+
+class CompensationForm(forms.ModelForm):
+	
+	class Meta:
+		model = Compensation
+		fields = '__all__'

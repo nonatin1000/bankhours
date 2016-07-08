@@ -1,0 +1,13 @@
+<h1 >Deletar Compesações</h1>
+<div class="row">
+<div class="col-md-6 margin-bottom-15"> 
+    <label class="control-label" >Nome</label>
+    <label class="form-control" >{{ object.employee.name }}</label>
+</div>
+<div class="control-group">
+ <div class="controls">
+    <form method="POST">{% csrf_token %}
+        <div class="controls"><button type="submit" class="btn btn-danger" style="align: center">Eu tenho certeza que quero remover essa Compensação!</button></div>
+    </form>
+ </div>
+</div>
