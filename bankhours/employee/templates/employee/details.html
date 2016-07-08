@@ -11,15 +11,15 @@
 <p><label>Função: </label> {{ object.function }}</p>
 <p><label>Departamento: </label> {{ object.department }}</p>
 <hr>
-<p><label>País: </label> {{ object.country }}</p>
-<p><label>Estado: </label> {{ object.state }}</p>
-<p><label>Cidade: </label> {{ object.city }}</p>
-<p><label>Bairro: </label> {{ object.neighborhood }}</p>
-<p><label>Logradouro: </label> {{ object.street }}</p>
-<p><label>Número: </label> {{ object.number }}</p>
-<p><label>CEP: </label> {{ object.zip_code }}</p>
-<p><label>Complemento: </label> {{ object.complement }}</p>
-<p><label>Ponto de Referência: </label> {{ object.reference_point }}</p>
+<p><label>País: </label> {{ object.address.country }}</p>
+<p><label>Estado: </label> {{ object.address.state }}</p>
+<p><label>Cidade: </label> {{ object.address.city }}</p>
+<p><label>Bairro: </label> {{ object.address.neighborhood }}</p>
+<p><label>Logradouro: </label> {{ object.address.street }}</p>
+<p><label>Número: </label> {{ object.address.number }}</p>
+<p><label>CEP: </label> {{ object.address.zip_code }}</p>
+<p><label>Complemento: </label> {{ object.address.complement }}</p>
+<p><label>Ponto de Referência: </label> {{ object.address.reference_point }}</p>
 <p>
   <a href="{% url 'employee:employee_list' %}"> 
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

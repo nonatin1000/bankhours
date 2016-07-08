@@ -12,7 +12,7 @@ class AuditModel(models.Model):
 		abstract=True
 
 class Function(AuditModel):
-	name = models.CharField('Nome', max_length=100, help_text='*')
+	name = models.CharField('Nome', max_length=100, unique=True, help_text='*')
 	description = models.TextField('Descrição', blank=True, null=True)
 
 	def __str__(self):
@@ -27,7 +27,7 @@ class Function(AuditModel):
 		ordering = ['-id']
 
 class Department(AuditModel):
-	name = models.CharField('Nome', max_length=100, help_text='*')
+	name = models.CharField('Nome', max_length=100, unique=True, help_text='*')
 	description = models.TextField('Descrição', blank=True, null=True)
 
 	def __str__(self):
@@ -83,7 +83,7 @@ class Address(AuditModel):
 class Employee(AuditModel):
 
 	name = models.CharField('Nome Completo', max_length=100, help_text='*')
-	cpf = models.CharField('CPF', max_length=14, help_text='*')
+	cpf = models.CharField('CPF', max_length=14, unique=True, help_text='*')
 	rg = models.CharField('RG', max_length=20, help_text='*')
 	MALE = 'M'
 	FEMALE  = 'F'
@@ -105,9 +105,9 @@ class Employee(AuditModel):
 		return self.marital_status in (self.MARRIED, self.SINGLE, self.SEPARATED, self.WINDOWER, self.DIVORCED)
 
 	birth_date = models.DateField('Data Nascimento', help_text='*')
-	siape = models.IntegerField('Siape', help_text='*')
+	siape = models.IntegerField('Siape', unique=True, help_text='*')
 	phone = models.CharField('Telefone', max_length=16, blank=True, null=True)
-	email = models.EmailField('E-mail', blank=True, null=True)
+	email = models.EmailField('E-mail', blank=True, unique=True, null=True)
 	function = models.ForeignKey(Function, verbose_name='Função', related_name='employees_functions', on_delete=models.CASCADE)
 	department = models.ForeignKey(Department, verbose_name='Departamento', related_name='employees_departments', on_delete=models.CASCADE)
 	address = models.ForeignKey(Address, verbose_name='Endereço', related_name='employees_address', on_delete=models.CASCADE)
