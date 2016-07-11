@@ -24,7 +24,7 @@ from bankhours.employee import urls as employee_urls
 
 urlpatterns = [
     url(r'^', include(core_urls, namespace='core')),
-    url(r'^banco-de-horas/', include(bank_of_hours_urls, namespace='bank_of_hours')),
+    url(r'^', include(bank_of_hours_urls, namespace='bank_of_hours')),
     url(r'^', include(employee_urls, namespace='employee')),
     url(r'^admin/', admin.site.urls),
 ]

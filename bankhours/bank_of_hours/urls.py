@@ -1,25 +1,19 @@
-"""bankhours URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    #url(r'^$', home, name='home'),
-	#url(r'^instituicao/list/$', InstitutionListView.as_view(), name='institution_list'),
-	#url(r'^instituicao/add/$', InstitutionCreate.as_view(), name='institution_add'),
-	#url(r'^instituicao/(?P<pk>\d+)/$', InstitutionDetailView.as_view(), name='institution_update'),
-	#url(r'^instituicao/(?P<pk>\d+)/delete/$', InstitutionDetailView.as_view(), name='institution_delete'),
+    # Autocomplete
+    url(r'^bank-of-hours-autocomplete/$', BankOfHoursAutocomplete.as_view(), name='bank_of_hours_autocomplete'), 
+    # BankOfHours
+    url(r'^bank-of-hours/list/$', BankOfHoursList.as_view(), name='bank_of_hours_list'),
+    url(r'^bank-of-hours/add/$', BankOfHoursCreate.as_view(), name='bank_of_hours_add'),
+    url(r'^bank-of-hours/details/(?P<pk>[0-9]+)/$', BankOfHoursDetails.as_view(), name='bank_of_hours_details'),
+    url(r'^bank-of-hours/edit/(?P<pk>[0-9]+)/$', BankOfHoursUpdate.as_view(), name='bank_of_hours_edit'),
+    url(r'^bank-of-hours/(?P<pk>[0-9]+)/delete/$', BankOfHoursDelete.as_view(), name='bank_of_hours_delete'),
+    # Compensation
+    url(r'^compensation/list/$', CompensationList.as_view(), name='compensation_list'),
+    url(r'^compensation/add/$', CompensationCreate.as_view(), name='compensation_add'),
+    url(r'^compensation/details/(?P<pk>[0-9]+)/$', CompensationDetails.as_view(), name='compensation_details'),
+    url(r'^compensation/edit/(?P<pk>[0-9]+)/$', CompensationUpdate.as_view(), name='compensation_edit'),
+    url(r'^compensation/(?P<pk>[0-9]+)/delete/$', CompensationDelete.as_view(), name='compensation_delete'),
 ]

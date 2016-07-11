@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from dal import autocomplete
 
 from .models import *
 from .forms import *
@@ -70,6 +71,18 @@ class EmployeeList(ListView):
 
 	model = Employee
 	template_name = 'employee/list.html'
+
+# Autocomplete employee
+class EmployeeAutocomplete(autocomplete.Select2QuerySetView):
+	def get_queryset(self):
+		# Don't forget to filter out results depending on the visitor !
+		
+		qs = Employee.objects.all()
+
+		if self.q:
+			qs = qs.filter(name__istartswith=self.q)
+
+		return qs
 
 class EmployeeCreate(CreateView):
 
@@ -188,58 +201,3 @@ class EmployeeDelete(DeleteView):
 	success_url = reverse_lazy('employee:employee_list')
 	template_name = 'employee/delete.html'
 
-class BankOfHoursList(ListView):
-
-	model = BankOfHours
-	template_name = 'bankofhours/list.html'
-
-class BankOfHoursCreate(CreateView):
-
-	model = BankOfHours
-	template_name = 'bankofhours/add.html'
-	fields = ['employee', 'start_time', 'end_time', 'comment', 'cumulative_hours', 'work_date']
-
-class BankOfHoursUpdate(UpdateView):
-
-	model = BankOfHours
-	template_name = 'bankofhours/add.html'
-	fields = ['employee', 'start_time', 'end_time', 'comment', 'cumulative_hours', 'work_date']
-
-class BankOfHoursDetails(DetailView):
-
-	model = BankOfHours
-	template_name = 'bankofhours/details.html'
-
-class BankOfHoursDelete(DeleteView):
-
-	model = BankOfHours
-	success_url = reverse_lazy('employee:bank_of_hours_list')
-	template_name = 'bankofhours/delete.html'
-
-class CompensationList(ListView):
-
-	model = Compensation
-	template_name = 'compensation/list.html'
-
-class CompensationCreate(CreateView):
-
-	model = Compensation
-	template_name = 'compensation/add.html'
-	fields = ['employee', 'amount_of_hours', 'compensated_date']
-
-class CompensationUpdate(UpdateView):
-
-	model = Compensation
-	template_name = 'compensation/add.html'
-	fields = ['employee', 'amount_of_hours', 'compensated_date']
-
-class CompensationDetails(DetailView):
-
-	model = Compensation
-	template_name = 'compensation/details.html'
-
-class CompensationDelete(DeleteView):
-
-	model = Compensation
-	success_url = reverse_lazy('employee:compensation_list')
-	template_name = 'compensation/delete.html'

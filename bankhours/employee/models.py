@@ -131,32 +131,3 @@ def post_delete_employee(instance, **kwargs):
 
 models.signals.post_delete.connect(post_delete_employee, sender=Employee, dispatch_uid='post_delete_employee')
 
-class BankOfHours(AuditModel):
-	employee = models.ForeignKey(Employee, verbose_name='Funcionário', related_name='bank_of_hours', on_delete=models.CASCADE)
-	start_time = models.TimeField('Hora de Entrada', help_text='*')
-	end_time = models.TimeField('Hora de Saída', help_text='*')
-	cumulative_hours = models.CharField('Horas', max_length=100, help_text='*')
-	comment = models.CharField('Observação', max_length=100, blank=True, null=True)
-	work_date = models.DateTimeField('Data',  help_text='*')
-	
-	class Meta:
-		verbose_name = 'Banco de Hora'
-		verbose_name_plural = 'Banco de Horas'
-		ordering = ['-id']
-
-	def get_absolute_url(self):
-		return reverse('employee:bank_of_hours_list')
-
-class Compensation(AuditModel):
-	employee = models.ForeignKey(Employee, verbose_name='Funcionário', related_name='compensations', on_delete=models.CASCADE)
-	amount_of_hours = models.CharField('Horas Compensadas', max_length=100, help_text='*')
-	bank_of_hours = models.ManyToManyField(BankOfHours, verbose_name='Banco de Horas', related_name='compensations')
-	compensated_date = models.DateTimeField('Data',  help_text='*')
-	
-	class Meta:
-		verbose_name = 'Compensação'
-		verbose_name_plural = 'Compensações'
-		ordering = ['-id']
-
-	def get_absolute_url(self):
-		return reverse('employee:compensation_list')

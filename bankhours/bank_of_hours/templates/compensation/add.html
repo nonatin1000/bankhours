@@ -1,10 +1,13 @@
+{% load staticfiles %}
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Salvar" />
 </form>
 <p>
-  <a href="{% url 'employee:bank_of_hours_list' %}"> 
+  <a href="{% url 'bank_of_hours:compensation_list' %}"> 
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     Voltar
   </a>
 </p>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+{{ form.media }}

@@ -1,0 +1,14 @@
+<h1>Banco de Horas</h1>
+<ul>
+{% for bank_of_hours in object_list %}
+    <li><a href="{% url 'bank_of_hours:bank_of_hours_details' bank_of_hours.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:bank_of_hours_edit' bank_of_hours.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:bank_of_hours_delete' bank_of_hours.id %}">Excluir</a> {{ bank_of_hours.id }} - {{ bank_of_hours.employee.name }} - Horas Acumuladas: {{ bank_of_hours.cumulative_hours }}</li>
+{% empty %}
+    <li>Nenhuma hora cadastrada.</li>
+{% endfor %}
+</ul>
+<p>
+  <a href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Adicionar
+  </a>
+</p>

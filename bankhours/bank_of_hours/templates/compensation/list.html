@@ -1,0 +1,14 @@
+<h1>Compensação</h1>
+<ul>
+{% for compensation in object_list %}
+    <li><a href="{% url 'bank_of_hours:compensation_details' compensation.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:compensation_edit' compensation.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:compensation_delete' compensation.id %}">Excluir</a> {{ compensation.id }} - {{ compensation.employee.name }} - Horas Compensadas: {{ compensation.amount_of_hours }}</li>
+{% empty %}
+    <li>Nenhuma compensação cadastrada.</li>
+{% endfor %}
+</ul>
+<p>
+  <a href="{% url 'bank_of_hours:compensation_add' %}"> 
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Adicionar
+  </a>
+</p>
