@@ -5,5 +5,5 @@ from django.contrib.auth.views import logout_then_login, login, password_reset, 
 urlpatterns = [
     # Login
     url(r'^login/$', login, {'template_name': 'accounts/login.html'}, name='login'), 
-    url(r'^logout/$', logout_then_login, {'login_url': 'core:home'}, name='logout'),
+    url(r'^logout/$', logout_then_login, {'login_url': 'core:index'}, name='logout'),
 ]
