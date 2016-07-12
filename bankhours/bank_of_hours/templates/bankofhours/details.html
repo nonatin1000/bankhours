@@ -1,15 +1,72 @@
-<h1>Banco de Horas</h1>
-<p><label>Nome:</label> {{ object.employee.name }}</p>
-<p><label>Função:</label> {{ object.employee.function.name }}</p>
-<p><label>Departamento:</label> {{ object.employee.department.name }}</p>
-<p><label>Entrada: </label> {{ object.start_time }}</p>
-<p><label>Saída: </label> {{ object.end_time }}</p>
-<p><label>Horas Acumuladas: </label> {{ object.cumulative_hours }}</p>
-<p><label>Data: </label> {{ object.work_date }}</p>
-<p><label>Observação: </label> {{ object.comment }}</p>
-<p>
-  <a href="{% url 'bank_of_hours:bank_of_hours_list' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Voltar
-  </a>
-</p>
+{% extends "base.html" %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <a class="navbar-brand" href="#">Informações - Banco de Horas</a>
+    <ul class="nav navbar-nav pull-right">
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'bank_of_hours:bank_of_hours_list' %}"> 
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Voltar
+          </a>
+        </p>
+      </li>
+
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'bank_of_hours:bank_of_hours_edit' object.id %}"> 
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            Editar
+          </a>
+        </p>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>
+          <strong>Nome:</strong>
+          {{ object.employee.name }}
+        </p>
+        <p>
+          <strong>Departamento:</strong>
+          {{ object.employee.department.name }}
+        </p>
+        <p>
+          <strong>Função:</strong>
+          {{ object.employee.function.name }}
+        </p>
+        <hr>
+        <h4>Horário</h4>
+        <hr>
+        <p>
+          <strong>Entrada:</strong>
+          {{ object.start_time }}
+        </p>
+        <p>
+          <strong>Saída:</strong>
+          {{ object.end_time }}
+        </p>
+        <p>
+          <strong>Horas Aculumadas:</strong>
+          {{ object.cumulative_hours }}
+        </p>
+        <p>
+          <strong>Observação:</strong>
+          {{ object.comment }}
+        </p>
+        <p>
+          <strong>Data:</strong>
+          {{ object.work_date }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

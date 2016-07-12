@@ -19,12 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 # Import URLS
 from bankhours.core import urls as core_urls 
+from bankhours.accounts import urls as accounts_urls
 from bankhours.bank_of_hours import urls as bank_of_hours_urls 
 from bankhours.employee import urls as employee_urls 
 
 urlpatterns = [
     url(r'^', include(core_urls, namespace='core')),
+    url(r'^conta/', include(accounts_urls, namespace='accounts')),
     url(r'^', include(bank_of_hours_urls, namespace='bank_of_hours')),
     url(r'^', include(employee_urls, namespace='employee')),
     url(r'^admin/', admin.site.urls),
 ]
+
+

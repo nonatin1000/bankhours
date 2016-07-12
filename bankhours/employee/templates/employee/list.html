@@ -1,14 +1,87 @@
-<h1>Empregados</h1>
-<ul>
-{% for employee in object_list %}
-    <li><a href="{% url 'employee:employee_details' employee.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'employee:employee_edit' employee.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'employee:employee_delete' employee.id %}">Excluir</a> {{ employee.id }} - {{ employee.name }}</li>
-{% empty %}
-    <li>Nenhum funcionário cadastrada.</li>
-{% endfor %}
-</ul>
-<p>
-  <a href="{% url 'employee:employee_add' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Adicionar
-  </a>
-</p>
+{% extends 'base.html' %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+	<div class="container">
+		<a class="navbar-brand" href="#">Funcionários</a>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<p class="navbar-btn">
+					<a class="btn btn-default" href="{% url 'employee:employee_add' %}"> 
+						<i class="fa fa-file-o" aria-hidden="true"></i>
+						Novo
+					</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>E-mail</th>
+						<th>Telefone</th>
+						<th style="width: 140px;">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for employee in object_list %}
+					<tr>
+						<td>{{ employee.name|slice:":25" }}</td>
+						<td>{{ employee.email }}</td>
+						<td>{{ employee.phone }}</td>
+						<td>                    
+							<a href="{% url 'employee:employee_details' employee.id %}" class="btn btn-default" title="Exibir">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</a>
+
+							<a href="{% url 'employee:employee_edit' employee.id %}" class="btn btn-default" title="Editar">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</a>
+
+							<a href="#modal-id-{{ employee.id }}" class="btn btn-default" title="Remover" data-toggle="modal">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</a>
+						</td>
+					</tr>
+
+					<!-- MODAL -->
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+						<div class="modal fade" id="modal-id-{{ employee.id }}">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Alerta!</h4>
+									</div>
+									<div class="modal-body">
+										<p>Deseja realmente remover <strong>{{ employee.name }}</strong>?</p>
+									</div>
+									<div class="modal-footer">
+										<form action="{% url 'employee:employee_delete' employee.pk %}" method="post">{%csrf_token%}
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<button type="submit" class='btn btn-danger' title='Deletar'>
+												Delete
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /MODAL -->
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

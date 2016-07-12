@@ -1,14 +1,85 @@
-<h1>Funções</h1>
-<ul>
-{% for function in object_list %}
-    <li><a href="{% url 'employee:function_details' function.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'employee:function_edit' function.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'employee:function_delete' function.id %}">Excluir</a> {{ function.id }} - {{ function.name }}</li>
-{% empty %}
-    <li>Nenhum função cadastrada.</li>
-{% endfor %}
-</ul>
-<p>
-  <a href="{% url 'employee:function_add' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Adicionar
-  </a>
-</p>
+{% extends 'base.html' %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+	<div class="container">
+		<a class="navbar-brand" href="#">Funções</a>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<p class="navbar-btn">
+					<a class="btn btn-default" href="{% url 'employee:function_add' %}"> 
+						<i class="fa fa-file-o" aria-hidden="true"></i>
+						Novo
+					</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th style="width: 21%;">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for function in object_list %}
+					<tr>
+						<td>{{ function.name }}</td>
+						<td>{{ function.description }}</td>
+						<td>                    
+							<a href="{% url 'employee:function_details' function.id %}" class="btn btn-default" title="Exibir">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</a>
+
+							<a href="{% url 'employee:function_edit' function.id %}" class="btn btn-default" title="Editar">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</a>
+
+							<a href="#modal-id-{{ function.id }}" class="btn btn-default" title="Remover" data-toggle="modal">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</a>
+						</td>
+					</tr>
+
+					<!-- MODAL -->
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+						<div class="modal fade" id="modal-id-{{ function.id }}">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Alerta!</h4>
+									</div>
+									<div class="modal-body">
+										<p>Deseja realmente remover <strong>{{ function.name }}</strong>?</p>
+									</div>
+									<div class="modal-footer">
+										<form action="{% url 'employee:function_delete' function.pk %}" method="post">{%csrf_token%}
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<button type="submit" class='btn btn-danger' title='Deletar'>
+												Delete
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /MODAL -->
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

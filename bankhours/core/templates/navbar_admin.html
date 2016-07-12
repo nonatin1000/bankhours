@@ -1,0 +1,95 @@
+<ul class="nav navbar-nav">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-database" aria-hidden="true"></i>
+      Cadastros
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{% url 'employee:function_list' %}">
+          <i class="fa fa-list-alt" aria-hidden="true"></i>
+          Funções
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'employee:department_list' %}">
+          <i class="fa fa-table" aria-hidden="true"></i>
+          Departamentos
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'employee:employee_list' %}">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Funcionários
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+      Horas
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{% url 'bank_of_hours:bank_of_hours_list' %}">
+          <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+          Lançar Horas
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'bank_of_hours:compensation_list' %}">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          Campensar as Horas
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+     <i class="fa fa-bar-chart" aria-hidden="true"></i>
+      Relatórios
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="#">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+          Banco de Horas
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-area-chart" aria-hidden="true"></i>
+          Campensação de Horas
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="nav navbar-nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-lock" aria-hidden="true"></i>
+      {{ user.first_name }}
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="#">
+          <i class="fa fa-key" aria-hidden="true"></i>
+          Altera senha
+        </a>
+      </li>
+      <li>
+        <a href="/odontology/logout/">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          Sair
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>

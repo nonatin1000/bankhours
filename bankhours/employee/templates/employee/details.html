@@ -1,29 +1,97 @@
-<h1>Funcionário</h1>
-<p><label>Nome:</label> {{ object.name }}</p>
-<p><label>CPF: </label> {{ object.cpf }}</p>
-<p><label>RG: </label> {{ object.rg }}</p>
-<p><label>E-mail: </label> {{ object.email }}</p>
-<p><label>Sexo: </label> {{ object.sex }}</p>
-<p><label>Estado Cívil: </label> {{ object.marital_status }}</p>
-<p><label>Data de Nascimento: </label> {{ object.birth_date }}</p>
-<p><label>Siape: </label> {{ object.siape }}</p>
-<p><label>Telefone: </label> {{ object.phone }}</p>
-<p><label>Regime de Trabalho: </label> {{ object.work_regime }}</p>
-<p><label>Função: </label> {{ object.function }}</p>
-<p><label>Departamento: </label> {{ object.department }}</p>
-<hr>
-<p><label>País: </label> {{ object.address.country }}</p>
-<p><label>Estado: </label> {{ object.address.state }}</p>
-<p><label>Cidade: </label> {{ object.address.city }}</p>
-<p><label>Bairro: </label> {{ object.address.neighborhood }}</p>
-<p><label>Logradouro: </label> {{ object.address.street }}</p>
-<p><label>Número: </label> {{ object.address.number }}</p>
-<p><label>CEP: </label> {{ object.address.zip_code }}</p>
-<p><label>Complemento: </label> {{ object.address.complement }}</p>
-<p><label>Ponto de Referência: </label> {{ object.address.reference_point }}</p>
-<p>
-  <a href="{% url 'employee:employee_list' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Voltar
-  </a>
-</p>
+{% extends 'base.html' %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dados do Funcionário</a>
+    <ul class="nav navbar-nav pull-right">
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'employee:employee_list' %}"> 
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Voltar
+          </a>
+        </p>
+      </li>
+
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'employee:employee_edit' object.id %}"> 
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            Editar
+          </a>
+        </p>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>
+          <strong>Nome:</strong>
+          {{ object.name }}
+        </p>
+        <p>
+          <strong>Sexo:</strong>
+          {{ object.sex }}
+        </p>
+        <p>
+          <strong>Estado civil:</strong>
+          {{ object.marital_status }}
+        </p>
+        <p>
+          <strong>Nascimento:</strong>
+          {{ object.birth_date }}
+        </p>
+        <p>
+          <strong>Email:</strong>
+          {{ object.email }}
+        </p>
+        <p>
+          <strong>Telefone:</strong>
+          {{ object.phone }}
+        </p>
+        <p>
+          <strong>País:</strong>
+          {{ object.address.country }}
+        </p>
+        <p>
+          <strong>Estado:</strong>
+          {{ object.address.state }}
+        </p>
+        <p>
+          <strong>Cidade:</strong>
+          {{ object.address.city }}
+        </p>
+        <p>
+          <strong>Bairro:</strong>
+          {{ object.address.neighborhood }}
+        </p>
+        <p>
+          <strong>Rua:</strong>
+          {{ object.address.street }}
+        </p>
+        <p>
+          <strong>Numero:</strong>
+          {{ object.address.number }}
+        </p>
+        <p>
+          <strong>Complemento:</strong>
+          {{ object.address.complement }}
+        </p>
+        <p>
+          <strong>Cep:</strong>
+          {{ object.address.zip_code }}
+        </p>
+        <p>
+          <strong>Ponto de Referência:</strong>
+          {{ object.address.reference_point }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

@@ -1,9 +1,45 @@
-<h1>Função</h1>
-<p><label>Nome:</label> {{ object.name }}</p>
-<p><label>Descrição: </label> {{ object.description }}</p>
-<p>
-  <a href="{% url 'employee:function_list' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Voltar
-  </a>
-</p>
+{% extends "base.html" %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dados da Função</a>
+    <ul class="nav navbar-nav pull-right">
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'employee:function_list' %}"> 
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Voltar
+          </a>
+        </p>
+      </li>
+
+      <li>
+        <p class="navbar-btn">
+          <a class="btn btn-default" href="{% url 'employee:function_edit' object.id %}"> 
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            Editar
+          </a>
+        </p>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>
+          <strong>Nome:</strong>
+          {{ object.name }}
+        </p>
+        <p>
+          <strong>Descrição:</strong>
+          {{ object.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

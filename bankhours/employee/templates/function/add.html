@@ -1,10 +1,53 @@
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Salvar" />
-</form>
-<p>
-  <a href="{% url 'employee:function_list' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Voltar
-  </a>
-</p>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+<nav class="navbar navbar-default">
+	<div class="container">
+		<a class="navbar-brand" href="#">Cadastro/Alteração de Funções</a>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<p class="navbar-btn">
+					<a class="btn btn-default" href="{% url 'employee:function_list' %}"> 
+						<i class="fa fa-times" aria-hidden="true"></i>
+						Cancelar
+					</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<form action="." class="form-group" method="post">{% csrf_token %}
+				<fieldset>
+					{% for field in form %}
+					{% if field.errors %}
+					<div class="form-group error" >
+						<label class="control-label" >{{ field.label }}</label>
+						{{ field|add_class:"form-control input-md" }}
+						{% for error in field.errors%}
+						<span class="help-inline error">{{ error}}</span>
+						{% endfor%}
+					</div>
+					{%else%}
+					<div class="form-group">
+						<label class="control-label" >{{ field.label }}</label>
+						{{ field|add_class:"form-control input-md" }}
+					</div>
+					{%endif%}
+					{% endfor %}
+					<div class="form-group">
+						<button type="submit" value="Salvar" class="btn btn-primary">
+							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+							Salvar
+						</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

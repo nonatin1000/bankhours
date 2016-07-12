@@ -1,14 +1,87 @@
-<h1>Banco de Horas</h1>
-<ul>
-{% for bank_of_hours in object_list %}
-    <li><a href="{% url 'bank_of_hours:bank_of_hours_details' bank_of_hours.id %}">Visualizar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:bank_of_hours_edit' bank_of_hours.id %}">Editar</a>&nbsp;&nbsp;<a href="{% url 'bank_of_hours:bank_of_hours_delete' bank_of_hours.id %}">Excluir</a> {{ bank_of_hours.id }} - {{ bank_of_hours.employee.name }} - Horas Acumuladas: {{ bank_of_hours.cumulative_hours }}</li>
-{% empty %}
-    <li>Nenhuma hora cadastrada.</li>
-{% endfor %}
-</ul>
-<p>
-  <a href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Adicionar
-  </a>
-</p>
+{% extends 'base.html' %}
+
+{% block body %}
+
+<nav class="navbar navbar-default">
+	<div class="container">
+		<a class="navbar-brand" href="#">Banco de Horas</a>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<p class="navbar-btn">
+					<a class="btn btn-default" href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
+						<i class="fa fa-file-o" aria-hidden="true"></i>
+						Novo
+					</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Data</th>
+						<th>Nome</th>
+						<th>Departamento</th>
+						<th style="width: 140px;">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for bank_of_hours in object_list %}
+					<tr>
+						<td>{{ bank_of_hours.created_on|date:"d/m/Y" }}</td>
+						<td>{{ bank_of_hours.employee.name }}</td>
+						<td>{{ bank_of_hours.employee.department.name }}</td>
+						<td>                    
+							<a href="{% url 'bank_of_hours:bank_of_hours_details' bank_of_hours.id %}" class="btn btn-default" title="Exibir">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</a>
+
+							<a href="{% url 'bank_of_hours:bank_of_hours_edit' bank_of_hours.id %}" class="btn btn-default" title="Editar">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</a>
+
+							<a href="#modal-id-{{ bank_of_hours.id }}" class="btn btn-default" title="Remover" data-toggle="modal">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</a>
+						</td>
+					</tr>
+
+					<!-- MODAL -->
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+						<div class="modal fade" id="modal-id-{{ bank_of_hours.id }}">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Alerta!</h4>
+									</div>
+									<div class="modal-body">
+										<p>Deseja realmente remover <strong>{{ bank_of_hours.name }}</strong>?</p>
+									</div>
+									<div class="modal-footer">
+										<form action="{% url 'bank_of_hours:bank_of_hours_delete' bank_of_hours.pk %}" method="post">{%csrf_token%}
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<button type="submit" class='btn btn-danger' title='Deletar'>
+												Delete
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /MODAL -->
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}
