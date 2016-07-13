@@ -50,4 +50,20 @@
 	</div>
 </div>
 {{ form.media }}
+<!-- Formatação dos campos data e hora -->
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $("#id_work_date").attr("readonly", "true");
+	  $("#id_work_date").datepicker({
+	    format: "dd/mm/yyyy",
+		todayBtn: "linked",
+		language: "pt-BR",
+		autoclose: true,
+		todayHighlight: true
+	  });
+
+	  $("#id_start_time").inputmask({"mask": "99:99"}); //specifying options
+	  $("#id_end_time").inputmask({"mask": "99:99"}); //specifying options
+	});
+</script>
 {% endblock %}

@@ -110,7 +110,8 @@ class Employee(AuditModel):
 	email = models.EmailField('E-mail', blank=True, unique=True, null=True)
 	function = models.ForeignKey(Function, verbose_name='Função', related_name='employees_functions', on_delete=models.CASCADE)
 	department = models.ForeignKey(Department, verbose_name='Departamento', related_name='employees_departments', on_delete=models.CASCADE)
-	work_regime = models.IntegerField('Regime de Trabalho', null=True, blank=True, help_text='*')
+	WORK_REGIME_CHOICES = ((40, '40 - Horas Semanais'), (30, '30 - Horas Semanais'), (20, '20 - Horas Semanais'),)
+	work_regime = models.IntegerField('Regime de Trabalho', choices=WORK_REGIME_CHOICES, default=40, null=True, blank=True, help_text='*')
 	address = models.ForeignKey(Address, verbose_name='Endereço', related_name='employees_address', on_delete=models.CASCADE)
 
 	def __str__(self): 

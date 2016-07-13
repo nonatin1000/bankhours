@@ -26,16 +26,16 @@
 					<tr>
 						<th>Data</th>
 						<th>Nome</th>
-						<th>Departamento</th>
+						<th>Horas</th>
 						<th style="width: 140px;">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for bank_of_hours in object_list %}
 					<tr>
-						<td>{{ bank_of_hours.created_on|date:"d/m/Y" }}</td>
+						<td>{{ bank_of_hours.work_date|date:"d/m/Y" }}</td>
 						<td>{{ bank_of_hours.employee.name }}</td>
-						<td>{{ bank_of_hours.employee.department.name }}</td>
+						<td>{{ bank_of_hours.cumulative_hours }}</td>
 						<td>                    
 							<a href="{% url 'bank_of_hours:bank_of_hours_details' bank_of_hours.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>

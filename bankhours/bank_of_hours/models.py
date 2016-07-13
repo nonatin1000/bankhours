@@ -2,6 +2,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from bankhours.employee.models import *
+from django.core.validators import MinValueValidator
 
 class AuditModel(models.Model):
 	# Audit Fields
@@ -15,7 +16,7 @@ class BankOfHours(AuditModel):
 	employee = models.ForeignKey(Employee, verbose_name='Funcionário', related_name='bank_of_hours', on_delete=models.CASCADE)
 	start_time = models.TimeField('Hora de Entrada', help_text='*')
 	end_time = models.TimeField('Hora de Saída', help_text='*')
-	cumulative_hours = models.CharField('Horas', max_length=100, help_text='*')
+	cumulative_hours = models.IntegerField('Horas acumuladas', validators=[MinValueValidator(1),])
 	comment = models.CharField('Observação', max_length=100, blank=True, null=True)
 	work_date = models.DateTimeField('Data',  help_text='*')
 	
@@ -33,8 +34,7 @@ class BankOfHours(AuditModel):
 
 class Compensation(AuditModel):
 	employee = models.ForeignKey(Employee, verbose_name='Funcionário', related_name='compensations', on_delete=models.CASCADE)
-	amount_of_hours = models.CharField('Horas Compensadas', max_length=100, help_text='*')
-	bank_of_hours = models.ManyToManyField(BankOfHours, verbose_name='Banco de Horas', related_name='compensations')
+	amount_of_hours = models.IntegerField('Horas a compensar', validators=[MinValueValidator(1),])
 	compensated_date = models.DateTimeField('Data',  help_text='*')
 	
 	class Meta:

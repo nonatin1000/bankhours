@@ -26,16 +26,16 @@
 					<tr>
 						<th>Data</th>
 						<th>Nome</th>
-						<th>Departamento</th>
+						<th>Horas</th>
 						<th style="width: 140px;">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for compensation in object_list %}
 					<tr>
-						<td>{{ compensation.created_on|date:"d/m/Y" }}</td>
+						<td>{{ compensation.compensated_date|date:"d/m/Y" }}</td>
 						<td>{{ compensation.employee.name }}</td>
-						<td>{{ compensation.employee.department.name }}</td>
+						<td>{{ compensation.amount_of_hours }}</td>
 						<td>                    
 							<a href="{% url 'bank_of_hours:compensation_details' compensation.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>
