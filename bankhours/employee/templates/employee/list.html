@@ -37,16 +37,16 @@
 						<td>{{ employee.email }}</td>
 						<td>{{ employee.phone }}</td>
 						<td>                    
+							<a href="{% url 'employee:hours_report_by_the_official_period' employee.id %}" class="btn btn-default" title="Relatório de Horas no perído">
+								<i class="fa fa-calendar-o" aria-hidden="true"></i>
+							</a>
+							
 							<a href="{% url 'employee:employee_details' employee.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>
 							</a>
 
 							<a href="{% url 'employee:employee_edit' employee.id %}" class="btn btn-default" title="Editar">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-							</a>
-
-							<a href="{% url 'employee:hours_report_by_the_official_period' employee.id %}" class="btn btn-default" title="Relatório de Horas no perído">
-								<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							</a>
 
 							<a href="#modal-id-{{ employee.id }}" class="btn btn-default" title="Remover" data-toggle="modal">

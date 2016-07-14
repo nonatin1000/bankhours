@@ -26,18 +26,16 @@
 					<button class="btn btn-default" type="submit" title="Clique aqui para realizar o filtro">
 					<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
-					<!-- Desabilita o botão imprimir se não tiver registros -->
-					{% if total_hours %}
+
 					<button class="btn btn-default" title="Clique aqui para imprimir" onclick="window.print();">
 						<i class="fa fa-print" aria-hidden="true"></i>
 					</button>
-					{% endif %}
 				</div>
 			</form>
 			<ul class="nav navbar-nav pull-right">
 			<li>
 				<p class="navbar-btn">
-					<a class="btn btn-default" href="{% url 'employee:employee_list' %}"> 
+					<a class="btn btn-default" href="javascript:window.history.go(-1)"> 
 						<i class="fa fa-chevron-left" aria-hidden="true"></i>
 						Voltar
 					</a>
@@ -77,105 +75,33 @@
 			</div>
 		</div>
 	</div>
-	{% if total_hours %}
+
 	<div class="row">
 		<div class="col-md-12">
-			<h4>Horas Extras</h4>
 			
 			<table class="table table-hover table-bordered print-data small-padding center center-total">
 				<thead>
 					<tr>
-						<td width="20"><strong>Data</strong></td>
-						<td width="20"><strong>Entrada</strong></td>
-						<td width="20"><strong>Saída</strong></td>
-						<td width="60"><strong>Banco de Horas</strong></td>
-						<td width="20"><strong>Observação</strong></td>
+						<td width="80"><strong>Funcionário</strong></td>
+						<td width="20"><strong>Banco de Horas</strong></td>
+						<td width="20"><strong>Horas Compensadas</strong></td>
+						<td width="20"><strong>Saldo</strong></td>
 					</tr>
 				</thead>
 				<tbody>
-					{% for bank in bank_of_hours %}
+					{{data.employee}} - {{data.cumulative_hours}} - {{data.amount_of_hours}} - {{data.balance}}
+					{% for d in data %}
 					<tr>
-						<td>{{ bank.work_date|date:"d/m/y" }}</td>
-						<td>{{ bank.start_time }}</td>
-						<td>{{ bank.end_time }}</td>
-						<td>{{ bank.cumulative_hours }}</td>
-						<td>{{ bank.comment }}</td>
+						<td>{{ d.employee }}</td>
+						<td>{{ d.cumulative_hours }}</td>
+						<td>{{ d.amount_of_hours }}</td>
+						<td>{{ d.balance }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<div class="row">
-
-		<div class="col-md-12">
-			<h4>Horas Compensadas</h4>
-			
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
-				<thead>
-					<tr>
-						<td width="10"><strong>Data</strong></td>
-						<td width="20"><strong>Compensadas</strong></td>
-					</tr>
-				</thead>
-				<tbody>
-					{% for bank in compensations %}
-					<tr>
-						<td>{{ bank.compensated_date|date:"d/m/y" }}</td>
-						<td>{{ bank.amount_of_hours }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<div class="row">
-		
-		<div class="col-md-12">
-			<h4>Informações</h4>
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
-				<thead>
-					<tr>
-						<td><strong>Hrs Extras Totais</strong></td>
-						<td><strong>Hrs Extras Filtro</strong></td>
-						<td><strong>Hrs Compensadas Totais</strong></td>
-						<td><strong>Hrs Compensadas Filtro</strong></td>
-						<td><strong>Saldo Total</strong></td>
-						<td><strong>Saldo Filtro</strong></td>
-					</tr>
-				</thead>
-				<tbody>
-					<td>{{ total_hours }}</td>
-					<td>{{ hours }}</td>
-					<td>{{ total_compensations }}</td>
-					<td>{{acumulated_hours}}</td>
-					<td>{{total_balance}}</td>
-					<td>{{ balance_filter }}</td>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="footer-print">
-			<div class="col-md-12 cent">
-				<h5>
-					<br>
-					{{object.name}}
-					<br>
-					Siape: {{object.siape}}
-				</h5>
-			</div>	
-		</div>
-	</div>
-	{% else %}
-	<center>
-		<h4>
-			<b>Sem registros</b>
-		</h4>
-	</center>
-	{% endif %}
-
 {% endblock %}
 
 {% block scripts %}

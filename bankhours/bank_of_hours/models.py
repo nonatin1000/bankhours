@@ -3,6 +3,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from bankhours.employee.models import *
 from django.core.validators import MinValueValidator
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 
 class AuditModel(models.Model):
 	# Audit Fields

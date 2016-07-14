@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^compensation/edit/(?P<pk>[0-9]+)/$', CompensationUpdate.as_view(), name='compensation_edit'),
     url(r'^compensation/(?P<pk>[0-9]+)/delete/$', CompensationDelete.as_view(), name='compensation_delete'),
     # Report
-    url(r'^employee/report/$', ReportEmployeePeriod.as_view(), name='employee_period'),
+    url(r'^employee/report-all-employee-period/$', ReportAllEmployeePeriod.as_view(), name='report_all_employee_period'),
 ]

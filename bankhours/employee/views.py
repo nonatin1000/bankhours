@@ -218,7 +218,7 @@ class HoursReportByTheOfficialPeriod(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(HoursReportByTheOfficialPeriod,self).get_context_data(**kwargs)
 		context['filtro_form']=self.filtro_form
-		bank_of_hours = self.object.bank_of_hours#.all()
+		bank_of_hours = self.object.bank_of_hours.all()
 		compensations = self.object.compensations.all()
 		total_hours = self.object.bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
 		total_compensations = self.object.compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']

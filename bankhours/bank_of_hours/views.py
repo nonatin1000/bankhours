@@ -4,11 +4,12 @@ from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from dal import autocomplete
-from django.db.models import Q,Sum
+from django.db.models import Sum
 from django.db.models.functions import Coalesce
 
 from .models import *
 from .forms import *
+from bankhours.employee.models import Employee
 
 # Autocomplete BankOfHours
 class BankOfHoursAutocomplete(autocomplete.Select2QuerySetView):
@@ -78,20 +79,47 @@ class CompensationDelete(DeleteView):
 	success_url = reverse_lazy('bank_of_hours:compensation_list')
 	template_name = 'compensation/delete.html'
 
-class ReportEmployeePeriod(ListView):
+class ReportAllEmployeePeriod(ListView):
 
 	model = BankOfHours
-	template_name = 'reports/employee_period.html'
+	template_name = 'reports/report_all_employee_period.html'
 
 	def get_queryset(self):
-		self.queryset = super(ReportEmployeePeriod,self).get_queryset()
+		self.queryset = super(ReportAllEmployeePeriod,self).get_queryset()
 		self.filtro_form=FilterForm(self.request.GET)
 		self.filtro_form.is_valid()
-		if self.request.GET.get('pesquisa', False) :
-			self.queryset=self.queryset.filter(Q(employee__name__icontains = self.request.GET['pesquisa']))
-		if self.filtro_form.cleaned_data.get('de', False) :
-			self.queryset=self.queryset.filter(work_date__gte = self.filtro_form.cleaned_data['de'])
-		if self.filtro_form.cleaned_data.get('ate', False) :
-			self.queryset=self.queryset.filter(work_date__lte = self.filtro_form.cleaned_data['ate'])
-		self.queryset.order_by("work_date")
 		return self.queryset
+
+	def get_context_data(self, **kwargs):
+		context = super(ReportAllEmployeePeriod,self).get_context_data(**kwargs)
+		context['filtro_form']=self.filtro_form
+		bank_of_hours = BankOfHours.objects.all()
+		compensations = Compensation.objects.all()
+		if(self.filtro_form.cleaned_data.get("de",False)):
+			compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
+			bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data["de"])
+		if(self.filtro_form.cleaned_data.get("ate", False)):
+			compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data["ate"])
+			bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data["ate"])
+		
+		# Dicionario
+		# Relatorio para exibir o nome do funcionario a quantidade horas extras, a quantidade de horas Compensadas e o saldo
+		data = {}
+		employees = Employee.objects.all()
+		for employee in employees:
+			for bankofhours in bank_of_hours:
+				for compensation in compensations:
+					if employee.bank_of_hours.filter(employee=employee).exists() or employee.compensations.filter(employee=employee).exists():
+						cumulative_hours = employee.bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
+						amount_of_hours = employee.compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
+						balance = cumulative_hours - amount_of_hours
+						data['employee'] = employee.name
+						data['cumulative_hours'] = cumulative_hours
+						data['amount_of_hours'] = amount_of_hours
+						data['balance'] = balance
+		
+		print(data)
+		context['bank_of_hours']=bank_of_hours 
+		context['compensations']=compensations
+		context['data']=data
+		return context
