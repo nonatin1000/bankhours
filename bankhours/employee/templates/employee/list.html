@@ -27,7 +27,7 @@
 						<th>Nome</th>
 						<th>E-mail</th>
 						<th>Telefone</th>
-						<th style="width: 140px;">Ações</th>
+						<th style="width: 185px;">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,6 +43,10 @@
 
 							<a href="{% url 'employee:employee_edit' employee.id %}" class="btn btn-default" title="Editar">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</a>
+
+							<a href="{% url 'employee:hours_report_by_the_official_period' employee.id %}" class="btn btn-default" title="Relatório de Horas no perído">
+								<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							</a>
 
 							<a href="#modal-id-{{ employee.id }}" class="btn btn-default" title="Remover" data-toggle="modal">

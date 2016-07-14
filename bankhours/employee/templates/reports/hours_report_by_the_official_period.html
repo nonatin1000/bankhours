@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block body %}
+<style type="text/css" media="print">
+    @page { 
+        size: portrait;
+    }
+</style>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse navbar-ex2-collapse">
+			<form class="form-horizontal navbar-form navbar-left" action="." method="get" role="search">
+				<div class="form-group">
+					{{filtro_form.de|add_class:"form-control"|attr:"Placeholder: De"}}
+					{{filtro_form.ate|add_class:"form-control"|attr:"Placeholder: Até"}}
+					<button class="btn btn-default" type="submit" title="Clique aqui para realizar o filtro">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+
+					<button class="btn btn-default" title="Clique aqui para imprimir" onclick="window.print();">
+						<i class="fa fa-print" aria-hidden="true"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="header-print">
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-1" style="position: relative; margin-left: 100px;">
+						<img src="{% static "images/brasao.gif" %}" height="80" width="80" class="img-responsive pull-left">
+					</div>
+					<div class="col-md-5 alig-header">
+						<h6>
+							<b>
+								MINISTÉRIO DA EDUCAÇÃO<br/>
+								UNIVERSIDADE FEDERAL DO PIAUÍ - UFPI<br/>
+								DIVISÃO DE RECURSOS HUMANOS - DRH<br/>
+							</b>
+						</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<center>
+							<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
+						</center>
+						<center><h6>FUNCIONÁRIO: {{ object.name|upper }}</h6></center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Horas Extras</h4>
+			
+			<table class="table table-hover table-bordered print-data small-padding center center-total">
+				<thead>
+					<tr>
+						<td width="20"><strong>Data</strong></td>
+						<td width="20"><strong>Entrada</strong></td>
+						<td width="20"><strong>Saída</strong></td>
+						<td width="60"><strong>Banco de Horas</strong></td>
+						<td width="20"><strong>Observação</strong></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for bank in bank_of_hours.all %}
+					<tr>
+						<td>{{ bank.work_date|date:"d/m/y" }}</td>
+						<td>{{ bank.start_time }}</td>
+						<td>{{ bank.end_time }}</td>
+						<td>{{ bank.cumulative_hours }}</td>
+						<td>{{ bank.comment }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-12">
+			<h4>Horas Compensadas</h4>
+			
+			<table class="table table-hover table-bordered print-data small-padding center center-total">
+				<thead>
+					<tr>
+						<td width="10"><strong>Data</strong></td>
+						<td width="20"><strong>Compensadas</strong></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for bank in compensations %}
+					<tr>
+						<td>{{ bank.compensated_date|date:"d/m/y" }}</td>
+						<td>{{ bank.amount_of_hours }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		
+		<div class="col-md-12">
+			<h4>Informações</h4>
+			<table class="table table-hover table-bordered print-data small-padding center center-total">
+				<thead>
+					<tr>
+						<td><strong>Hrs Extras Totais</strong></td>
+						<td><strong>Hrs Extras Filtro</strong></td>
+						<td><strong>Hrs Compensadas Totais</strong></td>
+						<td><strong>Hrs Compensadas Filtro</strong></td>
+						<td><strong>Saldo Total</strong></td>
+						<td><strong>Saldo Filtro</strong></td>
+					</tr>
+				</thead>
+				<tbody>
+					<td>{{ total_hours }}</td>
+					<td>{{ hours }}</td>
+					<td>{{ total_compensations }}</td>
+					<td>{{acumulated_hours}}</td>
+					<td>{{total_balance}}</td>
+					<td>{{ balance_filter }}</td>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	$(document).ready(function () {
+		$('#id_de').datepicker({
+			format: "dd/mm/yyyy",
+			todayBtn: "linked",
+			language: "pt-BR",
+			autoclose: true,
+			todayHighlight: true
+		});
+	});
+	$(document).ready(function () {
+		$('#id_ate').datepicker({
+			format: "dd/mm/yyyy",
+			todayBtn: "linked",
+			language: "pt-BR",
+			autoclose: true,
+			todayHighlight: true
+		});
+	});
+</script>
+
+{% endblock %}

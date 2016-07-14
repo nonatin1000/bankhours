@@ -61,8 +61,6 @@
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<strong>Atenção</strong> 
 			        	<p>{{ message }}</p>
-			        	<!-- Redirecina depois de 4 segundos -->
-			        	<!-- <meta http-equiv="REFRESH" content="4;url={% url 'login' %}"> -->
 					</div>
 			        {% endfor %}
 				{% endif %}
@@ -71,6 +69,9 @@
 	</div>
 
 	{% block body %}
+	{% endblock %}
+
+	{% block scripts %}
 	{% endblock %}
 </body>
 </html>

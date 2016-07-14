@@ -26,3 +26,7 @@ class AddressForm(forms.ModelForm):
 	class Meta:
 		model = Address
 		fields = '__all__'
+
+class FilterForm(forms.Form):
+	de = forms.DateField(label='De',required=False)
+	ate = forms.DateField(label='Até',required=False)

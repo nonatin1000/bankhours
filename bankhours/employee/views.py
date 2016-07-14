@@ -7,6 +7,8 @@ from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from dal import autocomplete
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 
 from .models import *
 from .forms import *
@@ -201,3 +203,42 @@ class EmployeeDelete(DeleteView):
 	success_url = reverse_lazy('employee:employee_list')
 	template_name = 'employee/delete.html'
 
+# Relatorio de horas por funcionario no periodo
+class HoursReportByTheOfficialPeriod(DetailView):
+
+	model = Employee
+	template_name = 'reports/hours_report_by_the_official_period.html'
+
+	def get_queryset(self):
+		self.queryset = super(HoursReportByTheOfficialPeriod,self).get_queryset()
+		self.filtro_form=FilterForm(self.request.GET)
+		self.filtro_form.is_valid()
+		return self.queryset
+
+	def get_context_data(self, **kwargs):
+		context = super(HoursReportByTheOfficialPeriod,self).get_context_data(**kwargs)
+		context['filtro_form']=self.filtro_form
+		bank_of_hours = self.object.bank_of_hours#.all()
+		compensations = self.object.compensations.all()
+		total_hours = self.object.bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
+		total_compensations = self.object.compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
+		if(self.filtro_form.cleaned_data.get("de",False)):
+			compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
+			bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data["de"])
+		if(self.filtro_form.cleaned_data.get("ate", False)):
+			compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data["ate"])
+			bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data["ate"])
+		# Somo todas a horas extras
+		hours = bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
+		context['hours']=hours
+		# Somo todas as horas compensadas
+		acumulated_hours = compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
+		context['acumulated_hours']=acumulated_hours #Horas acumuladas
+		context['bank_of_hours']=bank_of_hours #
+		context['compensations']=compensations
+		context['total_hours']=total_hours
+		context['total_compensations']=total_compensations
+		context['total_balance']=total_hours - total_compensations
+		context['balance_filter']=hours - acumulated_hours
+
+		return context

@@ -33,3 +33,7 @@ class CompensationForm(forms.ModelForm):
 		widgets = {
 			'employee': autocomplete.ModelSelect2(url='employee:employee_autocomplete')
 			}
+
+class FilterForm(forms.Form):
+	de = forms.DateField(label='De',required=False)
+	ate = forms.DateField(label='Até',required=False)

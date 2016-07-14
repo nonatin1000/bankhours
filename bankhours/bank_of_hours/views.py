@@ -4,6 +4,8 @@ from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from dal import autocomplete
+from django.db.models import Q,Sum
+from django.db.models.functions import Coalesce
 
 from .models import *
 from .forms import *
@@ -75,3 +77,21 @@ class CompensationDelete(DeleteView):
 	model = Compensation
 	success_url = reverse_lazy('bank_of_hours:compensation_list')
 	template_name = 'compensation/delete.html'
+
+class ReportEmployeePeriod(ListView):
+
+	model = BankOfHours
+	template_name = 'reports/employee_period.html'
+
+	def get_queryset(self):
+		self.queryset = super(ReportEmployeePeriod,self).get_queryset()
+		self.filtro_form=FilterForm(self.request.GET)
+		self.filtro_form.is_valid()
+		if self.request.GET.get('pesquisa', False) :
+			self.queryset=self.queryset.filter(Q(employee__name__icontains = self.request.GET['pesquisa']))
+		if self.filtro_form.cleaned_data.get('de', False) :
+			self.queryset=self.queryset.filter(work_date__gte = self.filtro_form.cleaned_data['de'])
+		if self.filtro_form.cleaned_data.get('ate', False) :
+			self.queryset=self.queryset.filter(work_date__lte = self.filtro_form.cleaned_data['ate'])
+		self.queryset.order_by("work_date")
+		return self.queryset

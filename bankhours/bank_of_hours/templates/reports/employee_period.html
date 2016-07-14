@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+<style type="text/css" media="print">
+    @page { 
+    	margin: 2cm;
+        size: portrait;
+    }
+</style>
+{% block body %}
+
+<h1>Horas Extras</h1>
+<div class="row">
+	<div class="col-lg-12">
+		<form class="form-horizontal navbar-form" role="search">
+			<div class="form-group">
+				<input type="text" name="pesquisa" class="form-control" placeholder="Pesquisar por..." value="{{request.GET.pesquisa}}">
+				{{filtro_form.de|add_class:"form-control"|attr:"Placeholder: De"}}
+				{{filtro_form.ate|add_class:"form-control"|attr:"Placeholder: Até"}}
+				<button class="btn btn-default" type="submit">Filtrar</button>
+			</div><!-- /input-group -->
+		</form>
+	</div><!-- /.col-lg-6 -->
+</div>
+
+<div class="print scale-9">
+	<div class="row">
+		<strong>
+			<div class="col-md-12">FUNCIONÁRIO: {{ object.employee.name }} - PERÍODO: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</div>
+		</strong>		
+	</div>
+	<div class="row">
+		<div class="table-responsive">
+			<table class="table display" id="table_order">
+				<thead>
+					<tr>
+						<th>Data</th>
+						<th>Entrada</th>
+						<th>Saída</th>
+						<th>Horas Acumuladas.</th>
+					</tr>
+				</thead>
+				<tbody>
+					{%for object in object_list%}
+					<tr class="{{object.pk}}">
+						<td>{{object.work_date}}</td>
+						<td>{{object.start_time}}</td>
+						<td>{{object.end_time}}</td>
+						<td>{{object.cumulative_hours}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<strong>
+			
+		</strong>
+	</div>
+</div>
+{% endblock %}

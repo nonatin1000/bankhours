@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^employee/details/(?P<pk>[0-9]+)/$', EmployeeDetails.as_view(), name='employee_details'),
     url(r'^employee/edit/(?P<pk>[0-9]+)/$', EmployeeUpdate.as_view(), name='employee_edit'),
     url(r'^employee/(?P<pk>[0-9]+)/delete/$', EmployeeDelete.as_view(), name='employee_delete'),
+    url(r'^employee/report-employee-period/(?P<pk>[0-9]+)/$', HoursReportByTheOfficialPeriod.as_view(), name='hours_report_by_the_official_period'),
 ]
