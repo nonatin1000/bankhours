@@ -222,12 +222,12 @@ class HoursReportByTheOfficialPeriod(DetailView):
 		compensations = self.object.compensations.all()
 		total_hours = self.object.bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
 		total_compensations = self.object.compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
-		if(self.filtro_form.cleaned_data.get("de",False)):
+		if(self.filtro_form.cleaned_data.get('de',False)):
 			compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
-			bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data["de"])
-		if(self.filtro_form.cleaned_data.get("ate", False)):
-			compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data["ate"])
-			bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data["ate"])
+			bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data['de'])
+		if(self.filtro_form.cleaned_data.get('ate', False)):
+			compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data['ate'])
+			bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data['ate'])
 		# Somo todas a horas extras
 		hours = bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
 		context['hours']=hours

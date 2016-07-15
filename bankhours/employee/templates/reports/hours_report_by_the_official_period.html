@@ -69,9 +69,15 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<center>
-							<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
-						</center>
+						{% if filtro_form.cleaned_data.de and  filtro_form.cleaned_data.ate %}
+							<center>
+								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
+							</center>
+						{% else %}
+							<center>
+								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA</h6>
+							</center>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -94,7 +100,7 @@
 				</thead>
 				<tbody>
 					{% for bank in bank_of_hours %}
-					<tr>
+					<tr class="{% cycle '' 'well' %}">
 						<td>{{ bank.work_date|date:"d/m/y" }}</td>
 						<td>{{ bank.start_time }}</td>
 						<td>{{ bank.end_time }}</td>

@@ -93,33 +93,31 @@ class ReportAllEmployeePeriod(ListView):
 	def get_context_data(self, **kwargs):
 		context = super(ReportAllEmployeePeriod,self).get_context_data(**kwargs)
 		context['filtro_form']=self.filtro_form
-		bank_of_hours = BankOfHours.objects.all()
-		compensations = Compensation.objects.all()
-		if(self.filtro_form.cleaned_data.get("de",False)):
-			compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
-			bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data["de"])
-		if(self.filtro_form.cleaned_data.get("ate", False)):
-			compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data["ate"])
-			bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data["ate"])
 		
 		# Dicionario
 		# Relatorio para exibir o nome do funcionario a quantidade horas extras, a quantidade de horas Compensadas e o saldo
-		data = {}
 		employees = Employee.objects.all()
 		for employee in employees:
-			for bankofhours in bank_of_hours:
-				for compensation in compensations:
-					if employee.bank_of_hours.filter(employee=employee).exists() or employee.compensations.filter(employee=employee).exists():
-						cumulative_hours = employee.bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
-						amount_of_hours = employee.compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
-						balance = cumulative_hours - amount_of_hours
-						data['employee'] = employee.name
-						data['cumulative_hours'] = cumulative_hours
-						data['amount_of_hours'] = amount_of_hours
-						data['balance'] = balance
-		
-		print(data)
-		context['bank_of_hours']=bank_of_hours 
-		context['compensations']=compensations
-		context['data']=data
+			bank_of_hours = employee.bank_of_hours.all()
+			compensations = employee.compensations.all()
+			
+			if(self.filtro_form.cleaned_data.get('de', False)):
+				compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
+				bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data['de'])
+				print("De")
+			if(self.filtro_form.cleaned_data.get('ate', False)):
+				compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data['ate'])
+				bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data['ate'])
+				print("Ate")
+
+			cumulative_hours = bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
+			amount_of_hours = compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
+			balance = cumulative_hours - amount_of_hours
+
+			employee.cumulative_hours = cumulative_hours
+			employee.amount_of_hours= amount_of_hours
+			employee.balance = balance
+
+		context['employees'] = employees
+
 		return context

@@ -67,9 +67,15 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<center>
-							<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
-						</center>
+						{% if filtro_form.cleaned_data.de and  filtro_form.cleaned_data.ate %}
+							<center>
+								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
+							</center>
+						{% else %}
+							<center>
+								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA</h6>
+							</center>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -83,19 +89,18 @@
 				<thead>
 					<tr>
 						<td width="80"><strong>Funcionário</strong></td>
-						<td width="20"><strong>Banco de Horas</strong></td>
-						<td width="20"><strong>Horas Compensadas</strong></td>
+						<td width="60"><strong>Banco de Horas</strong></td>
+						<td width="60"><strong>Horas Compensadas</strong></td>
 						<td width="20"><strong>Saldo</strong></td>
 					</tr>
 				</thead>
 				<tbody>
-					{{data.employee}} - {{data.cumulative_hours}} - {{data.amount_of_hours}} - {{data.balance}}
-					{% for d in data %}
-					<tr>
-						<td>{{ d.employee }}</td>
-						<td>{{ d.cumulative_hours }}</td>
-						<td>{{ d.amount_of_hours }}</td>
-						<td>{{ d.balance }}</td>
+					{% for employee in employees %}
+					<tr class="{% cycle '' 'well' %}">
+						<td>{{ employee.name }}</td>
+						<td>{{ employee.cumulative_hours }}</td>
+						<td>{{ employee.amount_of_hours }}</td>
+						<td>{{ employee.balance }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
