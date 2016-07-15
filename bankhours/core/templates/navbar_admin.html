@@ -73,7 +73,13 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="#">
+        <a href="{% url 'accounts:edit' %}" title="Editar os dados do usuário">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          Editar
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'accounts:password_change' %}">
           <i class="fa fa-key" aria-hidden="true"></i>
           Altera senha
         </a>

@@ -11,7 +11,11 @@ from .models import *
 from .forms import *
 from bankhours.employee.models import Employee
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 # Autocomplete BankOfHours
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursAutocomplete(autocomplete.Select2QuerySetView):
 	def get_queryset(self):
 		# Don't forget to filter out results depending on the visitor !
@@ -23,62 +27,73 @@ class BankOfHoursAutocomplete(autocomplete.Select2QuerySetView):
 
 		return qs
 
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursList(ListView):
 
 	model = BankOfHours
 	template_name = 'bankofhours/list.html'
 
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursCreate(CreateView):
 
 	model = BankOfHours
 	template_name = 'bankofhours/add.html'
 	form_class = BankOfHoursForm
 
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursUpdate(UpdateView):
 
 	model = BankOfHours
 	template_name = 'bankofhours/add.html'
 	form_class = BankOfHoursForm
 
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursDetails(DetailView):
 
 	model = BankOfHours
 	template_name = 'bankofhours/details.html'
 
+@method_decorator(login_required, name='dispatch')
 class BankOfHoursDelete(DeleteView):
 
 	model = BankOfHours
 	success_url = reverse_lazy('bank_of_hours:bank_of_hours_list')
 	template_name = 'bankofhours/delete.html'
 
+@method_decorator(login_required, name='dispatch')
 class CompensationList(ListView):
 
 	model = Compensation
 	template_name = 'compensation/list.html'
 
+@method_decorator(login_required, name='dispatch')
 class CompensationCreate(CreateView):
 
 	model = Compensation
 	template_name = 'compensation/add.html'
 	form_class = CompensationForm
 
+@method_decorator(login_required, name='dispatch')
 class CompensationUpdate(UpdateView):
 
 	model = Compensation
 	template_name = 'compensation/add.html'
 	form_class = CompensationForm
 
+@method_decorator(login_required, name='dispatch')
 class CompensationDetails(DetailView):
 
 	model = Compensation
 	template_name = 'compensation/details.html'
 
+@method_decorator(login_required, name='dispatch')
 class CompensationDelete(DeleteView):
 
 	model = Compensation
 	success_url = reverse_lazy('bank_of_hours:compensation_list')
 	template_name = 'compensation/delete.html'
 
+@method_decorator(login_required, name='dispatch')
 class ReportAllEmployeePeriod(ListView):
 
 	model = BankOfHours

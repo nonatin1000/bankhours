@@ -131,9 +131,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/bankhours/static/'
 
 # Auth
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'core:index'
-LOGOUT_URL = 'accounts:logout'
+LOGOUT_URL = '/accounts/logout'
 
 # Email configuration
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -143,7 +143,7 @@ EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nrdesales@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = '3sdr@s2014*'
 EMAIL_PORT = 587
 
 #SETTINGS LOCAL

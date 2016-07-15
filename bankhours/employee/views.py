@@ -13,62 +13,76 @@ from django.db.models.functions import Coalesce
 from .models import *
 from .forms import *
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+@method_decorator(login_required, name='dispatch')
 class FunctionList(ListView):
 	
 	model = Function
 	template_name = 'function/list.html'
 
+@method_decorator(login_required, name='dispatch')
 class FunctionCreate(CreateView):
 
 	model = Function 
 	template_name = 'function/add.html'
 	form_class = FunctionForm
 
+@method_decorator(login_required, name='dispatch')
 class FunctionUpdate(UpdateView):
 
 	model = Function
 	template_name = 'function/add.html'
 	form_class = FunctionForm
 
+@method_decorator(login_required, name='dispatch')
 class FunctionDetail(DetailView):
 
 	model = Function
 	template_name = 'function/details.html'
 
+@method_decorator(login_required, name='dispatch')
 class FunctionDelete(DeleteView):
 
 	model = Function
 	success_url = reverse_lazy('employee:function_list')
 	template_name = 'function/delete.html'
 
+@method_decorator(login_required, name='dispatch')
 class DepartmentList(ListView):
 
 	model = Department
 	template_name = 'department/list.html'
 
+@method_decorator(login_required, name='dispatch')
 class DepartmentCreate(CreateView):
 
 	model = Department
 	template_name = 'department/add.html'
 	form_class = DepartmentForm
 
+@method_decorator(login_required, name='dispatch')
 class DepartmentUpdate(UpdateView):
 
 	model = Department
 	template_name = 'department/add.html'
 	form_class = DepartmentForm
 
+@method_decorator(login_required, name='dispatch')
 class DepartmentDetail(DetailView):
 
 	model = Department
 	template_name = 'department/details.html'
 
+@method_decorator(login_required, name='dispatch')
 class DepartmentDelete(DeleteView):
 
 	model = Department
 	success_url = reverse_lazy('employee:department_list')
 	template_name = 'department/delete.html'
 
+@method_decorator(login_required, name='dispatch')
 class EmployeeList(ListView):
 
 	paginate_by = 50
@@ -83,6 +97,7 @@ class EmployeeList(ListView):
 		return self.queryset
 
 # Autocomplete employee
+@method_decorator(login_required, name='dispatch')
 class EmployeeAutocomplete(autocomplete.Select2QuerySetView):
 	def get_queryset(self):
 		# Don't forget to filter out results depending on the visitor !
@@ -94,6 +109,7 @@ class EmployeeAutocomplete(autocomplete.Select2QuerySetView):
 
 		return qs
 
+@method_decorator(login_required, name='dispatch')
 class EmployeeCreate(CreateView):
 
 	model = Employee
@@ -140,6 +156,7 @@ class EmployeeCreate(CreateView):
 	def get_success_url(self):
 		return reverse('employee:employee_list')
 
+@method_decorator(login_required, name='dispatch')
 class EmployeeUpdate(UpdateView):
 
 	model = Employee
@@ -200,11 +217,13 @@ class EmployeeUpdate(UpdateView):
 	def get_success_url(self):
 		return reverse('employee:employee_list')
 
+@method_decorator(login_required, name='dispatch')
 class EmployeeDetails(DetailView):
 
 	model = Employee
 	template_name = 'employee/details.html'
 
+@method_decorator(login_required, name='dispatch')
 class EmployeeDelete(DeleteView):
 
 	model = Employee
@@ -212,6 +231,7 @@ class EmployeeDelete(DeleteView):
 	template_name = 'employee/delete.html'
 
 # Relatorio de horas por funcionario no periodo
+@method_decorator(login_required, name='dispatch')
 class HoursReportByTheOfficialPeriod(DetailView):
 
 	model = Employee
