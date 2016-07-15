@@ -71,8 +71,16 @@ class DepartmentDelete(DeleteView):
 
 class EmployeeList(ListView):
 
+	paginate_by = 50
+
 	model = Employee
 	template_name = 'employee/list.html'
+
+	def get_queryset(self):
+		self.queryset = super(EmployeeList,self).get_queryset()
+		if self.request.GET.get('search_box', False) :
+			self.queryset=self.queryset.filter(name__icontains = self.request.GET['search_box'])
+		return self.queryset
 
 # Autocomplete employee
 class EmployeeAutocomplete(autocomplete.Select2QuerySetView):

@@ -21,16 +21,17 @@
 		<div class="collapse navbar-collapse navbar-ex2-collapse">
 			<form class="form-horizontal navbar-form navbar-left" action="." method="get" role="search">
 				<div class="form-group">
-					{{filtro_form.de|add_class:"form-control"|attr:"Placeholder: De"}}
-					{{filtro_form.ate|add_class:"form-control"|attr:"Placeholder: Até"}}
-					<button class="btn btn-default" type="submit" title="Clique aqui para realizar o filtro">
-					<i class="fa fa-search" aria-hidden="true"></i>
-					</button>
-					<!-- Desabilita o botão imprimir se não tiver registros -->
 					{% if total_hours %}
-					<button class="btn btn-default" title="Clique aqui para imprimir" onclick="window.print();">
-						<i class="fa fa-print" aria-hidden="true"></i>
-					</button>
+						{{filtro_form.de|add_class:"form-control"|attr:"Placeholder: De"}}
+						{{filtro_form.ate|add_class:"form-control"|attr:"Placeholder: Até"}}
+						<button class="btn btn-default" type="submit" title="Clique aqui para realizar o filtro">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
+						<!-- Desabilita o botão imprimir se não tiver registros -->
+						
+						<button class="btn btn-default" title="Clique aqui para imprimir" onclick="window.print();">
+							<i class="fa fa-print" aria-hidden="true"></i>
+						</button>
 					{% endif %}
 				</div>
 			</form>
