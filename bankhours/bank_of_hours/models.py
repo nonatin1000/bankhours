@@ -32,7 +32,7 @@ class BankOfHours(AuditModel):
 		return "{} - {} - {}".format(self.work_date, self.start_time, self.end_time)
 
 	def get_absolute_url(self):
-		return reverse('bank_of_hours:bank_of_hours_list')
+		return reverse('bank_of_hours_list')
 
 class Compensation(AuditModel):
 	employee = models.ForeignKey(Employee, verbose_name='Funcionário', related_name='compensations', on_delete=models.CASCADE)
@@ -45,4 +45,4 @@ class Compensation(AuditModel):
 		ordering = ['-id']
 
 	def get_absolute_url(self):
-		return reverse('bank_of_hours:compensation_list')
+		return reverse('compensation_list')

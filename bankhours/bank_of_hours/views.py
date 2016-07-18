@@ -57,7 +57,7 @@ class BankOfHoursDetails(DetailView):
 class BankOfHoursDelete(DeleteView):
 
 	model = BankOfHours
-	success_url = reverse_lazy('bank_of_hours:bank_of_hours_list')
+	success_url = reverse_lazy('bank_of_hours_list')
 	template_name = 'bankofhours/delete.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -90,7 +90,7 @@ class CompensationDetails(DetailView):
 class CompensationDelete(DeleteView):
 
 	model = Compensation
-	success_url = reverse_lazy('bank_of_hours:compensation_list')
+	success_url = reverse_lazy('compensation_list')
 	template_name = 'compensation/delete.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -119,11 +119,9 @@ class ReportAllEmployeePeriod(ListView):
 			if(self.filtro_form.cleaned_data.get('de', False)):
 				compensations = compensations.filter(compensated_date__gte=self.filtro_form.cleaned_data['de'])
 				bank_of_hours = bank_of_hours.filter(work_date__gte=self.filtro_form.cleaned_data['de'])
-				print("De")
 			if(self.filtro_form.cleaned_data.get('ate', False)):
 				compensations=compensations.filter(compensated_date__lte=self.filtro_form.cleaned_data['ate'])
 				bank_of_hours=bank_of_hours.filter(work_date__lte=self.filtro_form.cleaned_data['ate'])
-				print("Ate")
 
 			cumulative_hours = bank_of_hours.aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
 			amount_of_hours = compensations.aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']

@@ -23,7 +23,7 @@
 				</li>
 				<li>
 					<div class="col-md-4 col-xs-4 col-sm-4 space-top">
-						<a class="btn btn-default pull-right" href="{% url 'employee:employee_add' %}"> 
+						<a class="btn btn-default pull-right" href="{% url 'employee_add' %}"> 
 							<i class="fa fa-file-o" aria-hidden="true"></i>
 							Novo
 						</a>
@@ -54,15 +54,15 @@
 						<td>{{ employee.email }}</td>
 						<td>{{ employee.phone }}</td>
 						<td>                    
-							<a href="{% url 'employee:hours_report_by_the_official_period' employee.id %}" class="btn btn-default" title="Relatório de Horas no perído">
+							<a href="{% url 'hours_report_by_the_official_period' employee.id %}" class="btn btn-default" title="Relatório de Horas no perído">
 								<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							</a>
 							
-							<a href="{% url 'employee:employee_details' employee.id %}" class="btn btn-default" title="Exibir">
+							<a href="{% url 'employee_details' employee.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>
 							</a>
 
-							<a href="{% url 'employee:employee_edit' employee.id %}" class="btn btn-default" title="Editar">
+							<a href="{% url 'employee_edit' employee.id %}" class="btn btn-default" title="Editar">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 							</a>
 
@@ -85,7 +85,7 @@
 										<p>Deseja realmente remover <strong>{{ employee.name }}</strong>?</p>
 									</div>
 									<div class="modal-footer">
-										<form action="{% url 'employee:employee_delete' employee.pk %}" method="post">{%csrf_token%}
+										<form action="{% url 'employee_delete' employee.pk %}" method="post">{%csrf_token%}
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											<button type="submit" class='btn btn-danger' title='Deletar'>
 												Delete

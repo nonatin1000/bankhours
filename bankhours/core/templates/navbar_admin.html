@@ -7,19 +7,19 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{% url 'employee:function_list' %}">
+        <a href="{% url 'function_list' %}">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           Funções
         </a>
       </li>
       <li>
-        <a href="{% url 'employee:department_list' %}">
+        <a href="{% url 'department_list' %}">
           <i class="fa fa-table" aria-hidden="true"></i>
           Departamentos
         </a>
       </li>
       <li>
-        <a href="{% url 'employee:employee_list' %}">
+        <a href="{% url 'employee_list' %}">
           <i class="fa fa-user" aria-hidden="true"></i>
           Funcionários
         </a>
@@ -34,13 +34,13 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{% url 'bank_of_hours:bank_of_hours_list' %}">
+        <a href="{% url 'bank_of_hours_list' %}">
           <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
           Lançar Horas
         </a>
       </li>
       <li>
-        <a href="{% url 'bank_of_hours:compensation_list' %}">
+        <a href="{% url 'compensation_list' %}">
           <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
           Campensar Horas
         </a>
@@ -55,7 +55,7 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{% url 'bank_of_hours:report_all_employee_period' %}">
+        <a href="{% url 'report_all_employee_period' %}">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
           Funcionários por Perído
         </a>
@@ -73,19 +73,19 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{% url 'accounts:edit' %}" title="Editar os dados do usuário">
+        <a href="{% url 'edit' %}" title="Editar os dados do usuário">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           Editar
         </a>
       </li>
       <li>
-        <a href="{% url 'accounts:password_change' %}">
+        <a href="{% url 'password_change' %}">
           <i class="fa fa-key" aria-hidden="true"></i>
           Altera senha
         </a>
       </li>
       <li>
-        <a href="{% url 'accounts:logout' %}">
+        <a href="{% url 'logout' %}">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
           Sair
         </a>

@@ -8,7 +8,7 @@
 		<ul class="nav navbar-nav pull-right">
 			<li>
 				<p class="navbar-btn">
-					<a class="btn btn-default" href="{% url 'employee:department_add' %}"> 
+					<a class="btn btn-default" href="{% url 'department_add' %}"> 
 						<i class="fa fa-file-o" aria-hidden="true"></i>
 						Novo
 					</a>
@@ -35,11 +35,11 @@
 						<td>{{ department.name }}</td>
 						<td>{{ department.description }}</td>
 						<td>                    
-							<a href="{% url 'employee:department_details' department.id %}" class="btn btn-default" title="Exibir">
+							<a href="{% url 'department_details' department.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>
 							</a>
 
-							<a href="{% url 'employee:department_edit' department.id %}" class="btn btn-default" title="Editar">
+							<a href="{% url 'department_edit' department.id %}" class="btn btn-default" title="Editar">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 							</a>
 
@@ -62,7 +62,7 @@
 										<p>Deseja realmente remover <strong>{{ department.name }}</strong>?</p>
 									</div>
 									<div class="modal-footer">
-										<form action="{% url 'employee:department_delete' department.pk %}" method="post">{%csrf_token%}
+										<form action="{% url 'department_delete' department.pk %}" method="post">{%csrf_token%}
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											<button type="submit" class='btn btn-danger' title='Deletar'>
 												Delete

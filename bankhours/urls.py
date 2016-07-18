@@ -24,10 +24,10 @@ from bankhours.bank_of_hours import urls as bank_of_hours_urls
 from bankhours.employee import urls as employee_urls 
 
 urlpatterns = [
-    url(r'^', include(core_urls, namespace='core')),
-    url(r'^accounts/', include(accounts_urls, namespace='accounts')),
-    url(r'^', include(bank_of_hours_urls, namespace='bank_of_hours')),
-    url(r'^', include(employee_urls, namespace='employee')),
+    url(r'^', include(core_urls)),
+    url(r'^accounts/', include(accounts_urls)),
+    url(r'^', include(bank_of_hours_urls)),
+    url(r'^', include(employee_urls)),
     url(r'^admin/', admin.site.urls),
 ]
 

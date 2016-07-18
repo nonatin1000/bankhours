@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <form class="form-signin" action="{% url 'accounts:login' %}" method="post">{% csrf_token %}
+            <form class="form-signin" action="{% url 'login' %}" method="post">{% csrf_token %}
                 <div class="form-group">
                     <h2 class="form-signin-heading">Login</h2>
                 </div>
@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 <center>
-                    <a href="{% url 'accounts:password_reset' %}" title="">Esqueci minha senha</a> <br />
+                    <a href="{% url 'password_reset' %}" title="">Esqueci minha senha</a> <br />
                 </center>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>

@@ -46,7 +46,7 @@ class FunctionDetail(DetailView):
 class FunctionDelete(DeleteView):
 
 	model = Function
-	success_url = reverse_lazy('employee:function_list')
+	success_url = reverse_lazy('function_list')
 	template_name = 'function/delete.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -79,7 +79,7 @@ class DepartmentDetail(DetailView):
 class DepartmentDelete(DeleteView):
 
 	model = Department
-	success_url = reverse_lazy('employee:department_list')
+	success_url = reverse_lazy('department_list')
 	template_name = 'department/delete.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -154,7 +154,7 @@ class EmployeeCreate(CreateView):
 		)
 
 	def get_success_url(self):
-		return reverse('employee:employee_list')
+		return reverse('employee_list')
 
 @method_decorator(login_required, name='dispatch')
 class EmployeeUpdate(UpdateView):
@@ -215,7 +215,7 @@ class EmployeeUpdate(UpdateView):
 		)
 
 	def get_success_url(self):
-		return reverse('employee:employee_list')
+		return reverse('employee_list')
 
 @method_decorator(login_required, name='dispatch')
 class EmployeeDetails(DetailView):
@@ -227,7 +227,7 @@ class EmployeeDetails(DetailView):
 class EmployeeDelete(DeleteView):
 
 	model = Employee
-	success_url = reverse_lazy('employee:employee_list')
+	success_url = reverse_lazy('employee_list')
 	template_name = 'employee/delete.html'
 
 # Relatorio de horas por funcionario no periodo
