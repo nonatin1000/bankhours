@@ -30,8 +30,16 @@ class BankOfHoursAutocomplete(autocomplete.Select2QuerySetView):
 @method_decorator(login_required, name='dispatch')
 class BankOfHoursList(ListView):
 
+	paginate_by = 50
+
 	model = BankOfHours
 	template_name = 'bankofhours/list.html'
+
+	def get_queryset(self):
+		self.queryset = super(BankOfHoursList,self).get_queryset()
+		if self.request.GET.get('search_box', False) :
+			self.queryset=self.queryset.filter(employee__name__icontains = self.request.GET['search_box'])
+		return self.queryset
 
 @method_decorator(login_required, name='dispatch')
 class BankOfHoursCreate(CreateView):
@@ -63,8 +71,16 @@ class BankOfHoursDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')
 class CompensationList(ListView):
 
+	paginate_by = 50
+
 	model = Compensation
 	template_name = 'compensation/list.html'
+
+	def get_queryset(self):
+		self.queryset = super(CompensationList,self).get_queryset()
+		if self.request.GET.get('search_box', False) :
+			self.queryset=self.queryset.filter(employee__name__icontains = self.request.GET['search_box'])
+		return self.queryset
 
 @method_decorator(login_required, name='dispatch')
 class CompensationCreate(CreateView):
