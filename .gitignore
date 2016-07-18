@@ -1,5 +1,4 @@
 *.pyc
 *.pyo
 *.json
-db.sqlite3
 bankhours/settings_local.py

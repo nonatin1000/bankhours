@@ -23,7 +23,7 @@
 				</li>
 				<li>
 					<div class="col-md-4 col-xs-4 col-sm-4 space-top">
-						<a class="btn btn-default" href="{% url 'bank_of_hours_add' %}"> 
+						<a class="btn btn-default" href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
 							<i class="fa fa-file-o" aria-hidden="true"></i>
 							Novo
 						</a>
@@ -53,11 +53,11 @@
 						<td>{{ bank_of_hours.employee.name }}</td>
 						<td>{{ bank_of_hours.cumulative_hours }}</td>
 						<td>                    
-							<a href="{% url 'bank_of_hours_details' bank_of_hours.id %}" class="btn btn-default" title="Exibir">
+							<a href="{% url 'bank_of_hours:bank_of_hours_details' bank_of_hours.id %}" class="btn btn-default" title="Exibir">
 								<i class="fa fa-search" aria-hidden="true"></i>
 							</a>
 
-							<a href="{% url 'bank_of_hours_edit' bank_of_hours.id %}" class="btn btn-default" title="Editar">
+							<a href="{% url 'bank_of_hours:bank_of_hours_edit' bank_of_hours.id %}" class="btn btn-default" title="Editar">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 							</a>
 
@@ -80,7 +80,7 @@
 										<p>Deseja realmente remover <strong>{{ bank_of_hours.name }}</strong>?</p>
 									</div>
 									<div class="modal-footer">
-										<form action="{% url 'bank_of_hours_delete' bank_of_hours.pk %}" method="post">{%csrf_token%}
+										<form action="{% url 'bank_of_hours:bank_of_hours_delete' bank_of_hours.pk %}" method="post">{%csrf_token%}
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											<button type="submit" class='btn btn-danger' title='Deletar'>
 												Delete
@@ -134,7 +134,6 @@
 		{% endif %}
 		<!-- Fim da Paginação -->
 	</center>
-</div>
 </div>
 
 {% endblock %}

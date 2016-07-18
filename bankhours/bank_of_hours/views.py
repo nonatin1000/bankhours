@@ -65,7 +65,7 @@ class BankOfHoursDetails(DetailView):
 class BankOfHoursDelete(DeleteView):
 
 	model = BankOfHours
-	success_url = reverse_lazy('bank_of_hours_list')
+	success_url = reverse_lazy('bank_of_hours:bank_of_hours_list')
 	template_name = 'bankofhours/delete.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -106,7 +106,7 @@ class CompensationDetails(DetailView):
 class CompensationDelete(DeleteView):
 
 	model = Compensation
-	success_url = reverse_lazy('compensation_list')
+	success_url = reverse_lazy('bank_of_hours:compensation_list')
 	template_name = 'compensation/delete.html'
 
 @method_decorator(login_required, name='dispatch')

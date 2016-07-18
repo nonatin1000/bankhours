@@ -19,7 +19,7 @@ class Function(AuditModel):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse('function_list')
+		return reverse('employee:function_list')
 
 	class Meta:
 		verbose_name = 'Função'
@@ -34,7 +34,7 @@ class Department(AuditModel):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse('department_list')
+		return reverse('employee:department_list')
 
 	class Meta:
 		verbose_name = 'Departamento'
@@ -118,7 +118,7 @@ class Employee(AuditModel):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse('employee_list')
+		return reverse('employee:employee_list')
 
 	class Meta:
 		verbose_name = 'Funcionario'

@@ -132,7 +132,7 @@ STATIC_ROOT = '/var/www/bankhours/static/'
 
 # Auth
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_URL = '/accounts/logout'
 
 # Email configuration

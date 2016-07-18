@@ -16,7 +16,7 @@ def edit(request):
 		if form.is_valid():
 			form.save()
 			messages.success(request, "Os dados da conta foram alterados com sucesso")
-			return redirect("index")
+			return redirect("core:index")
 	else:
 		form = EditAccountForm(instance=request.user)
 
