@@ -11,7 +11,7 @@ class BankOfHoursForm(forms.ModelForm):
 	class Meta:
 		model = BankOfHours
 		fields = '__all__'
-		widgets = {'employee': autocomplete.ModelSelect2(url='employee:employee_autocomplete')}
+		widgets = {'employee': autocomplete.ModelSelect2(url='employee_autocomplete')}
 
 class CompensationForm(forms.ModelForm):
 	
@@ -31,7 +31,7 @@ class CompensationForm(forms.ModelForm):
 		model = Compensation
 		fields = '__all__'
 		widgets = {
-			'employee': autocomplete.ModelSelect2(url='employee:employee_autocomplete')
+			'employee': autocomplete.ModelSelect2(url='employee_autocomplete')
 			}
 
 class FilterForm(forms.Form):
