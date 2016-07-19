@@ -154,7 +154,7 @@ class EmployeeCreate(CreateView):
 		)
 
 	def get_success_url(self):
-		return reverse('employee_list')
+		return reverse('employee:employee_list')
 
 @method_decorator(login_required, name='dispatch')
 class EmployeeUpdate(UpdateView):
@@ -215,7 +215,7 @@ class EmployeeUpdate(UpdateView):
 		)
 
 	def get_success_url(self):
-		return reverse('employee_list')
+		return reverse('employee:employee_list')
 
 @method_decorator(login_required, name='dispatch')
 class EmployeeDetails(DetailView):
