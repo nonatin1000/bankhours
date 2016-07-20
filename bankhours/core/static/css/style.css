@@ -12,6 +12,10 @@ body { padding-top: 50px; }
   display: inline;
 }
 
+.nav-dist-btn{
+  margin-right: 5px;
+}
+
 .inline-c{
   display: inline;
 }

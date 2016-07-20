@@ -8,7 +8,7 @@
     <ul class="nav navbar-nav pull-right">
       <li>
         <p class="navbar-btn">
-          <a class="btn btn-default" href="{% url 'employee:employee_list' %}"> 
+          <a class="btn btn-default nav-dist-btn" href="{% url 'employee:employee_list' %}"> 
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
             Voltar
           </a>
@@ -35,6 +35,14 @@
           {{ object.name }}
         </p>
         <p>
+          <strong>CPF:</strong>
+          {{ object.cpf }}
+        </p>
+        <p>
+          <strong>Siape:</strong>
+          {{ object.siape }}
+        </p>
+        <p>
           <strong>Sexo:</strong>
           {{ object.sex }}
         </p>
@@ -54,6 +62,9 @@
           <strong>Telefone:</strong>
           {{ object.phone }}
         </p>
+        <hr>
+        <h4>Endereço</h4>
+        <hr>
         <p>
           <strong>País:</strong>
           {{ object.address.country }}

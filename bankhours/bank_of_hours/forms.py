@@ -22,7 +22,7 @@ class CompensationForm(forms.ModelForm):
 		hours = BankOfHours.objects.filter(employee=employee).aggregate(total=Coalesce(Sum('cumulative_hours'),0))['total']
 		# Somo todas as horas compensadas
 		acumulated_hours = Compensation.objects.filter(employee=employee).aggregate(total=Coalesce(Sum('amount_of_hours'),0))['total']
-		print(hours)
+		
 		if self.cleaned_data['amount_of_hours'] > (hours-acumulated_hours):
 			raise forms.ValidationError('Esse funcionário não possui horas suficientes para ser compensadas')
 		return self.cleaned_data['amount_of_hours']

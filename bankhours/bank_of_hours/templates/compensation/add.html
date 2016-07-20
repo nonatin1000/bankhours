@@ -32,10 +32,10 @@
 						{% endfor%}
 					</div>
 					{%else%}
-					<div class="form-group">
+					<div class="form-group date">
 						<label class="control-label" >{{ field.label }}</label>
-						{{ field|add_class:"form-control input-md" }}
-					</div>
+						{{ field|add_class:"form-control input-md input-group date" }}
+					</div> 
 					{%endif%}
 					{% endfor %}
 					<div class="form-group">
@@ -47,7 +47,7 @@
 				</fieldset>
 			</form>
 		</div>
-	</div>
+	</div> 
 </div>
 {{ form.media }}
 <!-- Formatação dos campos data e hora -->
@@ -58,12 +58,10 @@
 	    format: "dd/mm/yyyy",
 		todayBtn: "linked",
 		language: "pt-BR",
+		orientation: "bottom",
 		autoclose: true,
 		todayHighlight: true
 	  });
-
-	  $("#id_start_time").inputmask({"mask": "99:99"}); //specifying options
-	  $("#id_end_time").inputmask({"mask": "99:99"}); //specifying options
 	});
 </script>
 {% endblock %}

@@ -8,7 +8,7 @@
 		<div class="row">
 			<ul class="nav nav-inline">
 				<li>
-					<div class="col-md-10 col-xs-10 col-sm-10 space-top">
+					<div class="col-md-8 col-xs-8 col-sm-8 space-top">
 						<form class="form-horizontal" action="." method="get">
 							<div class="input-group">
 								<input id="search_box" name="search_box" type="text" placeholder="BANCO DE HOURAS | Informe o nome do Funcionário" class="form-control" autofocus="true" value="{{ request.GET.search_box }}">
@@ -22,8 +22,8 @@
 					</div>
 				</li>
 				<li>
-					<div class="col-md-2 col-xs-2 col-sm-2 space-top">
-						<a class="btn btn-default" href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
+					<div class="col-md-4 col-xs- col-sm-4 space-top">
+						<a class="btn btn-default pull-right" href="{% url 'bank_of_hours:bank_of_hours_add' %}"> 
 							<i class="fa fa-file-o" aria-hidden="true"></i>
 							Novo
 						</a>
