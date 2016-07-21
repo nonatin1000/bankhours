@@ -115,10 +115,10 @@ body { padding-top: 50px; }
     right: 33%;
   }
   .print-data tbody > tr > td{
-    font-size: 7pt;
+    font-size: 8pt;
   }
   .print-data thead > tr > th{
-    font-size: 7pt;
+    font-size: 8pt;
   }
   .img-teste{
     width: 55%;
@@ -151,7 +151,25 @@ body { padding-top: 50px; }
   padding: 5px 5px 4px 4px; 
   text-align: center;
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.0rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tit-table-tr{
+  padding: 5px 5px 4px 4px; 
+  text-align: center;
+  margin: 0;
+  font-size: 1.0rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tit-tr-normal{
+  padding: 5px 5px 4px 4px; 
+  text-align: center;
+  margin: 0;
+  font-size: 1.0rem;
   font-weight: bold;
   text-transform: uppercase;
 }
