@@ -2,6 +2,7 @@
 
 from django import forms
 from .models import *
+from localflavor.br.forms import BRCPFField
 
 class FunctionForm(forms.ModelForm):
 	
@@ -16,6 +17,8 @@ class DepartmentForm(forms.ModelForm):
 		fields = '__all__'
 
 class EmployeeForm(forms.ModelForm):
+
+	cpf = BRCPFField(label='CPF', required=True)
 
 	class Meta:
 		model = Employee

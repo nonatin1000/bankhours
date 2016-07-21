@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # App de terceiro
     'widget_tweaks',
+    'localflavor',
+    # My APP
     'bankhours.core',
     'bankhours.accounts',
     'bankhours.bank_of_hours',

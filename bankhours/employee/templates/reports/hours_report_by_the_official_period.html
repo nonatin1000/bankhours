@@ -73,11 +73,11 @@
 					<div class="col-md-12">
 						{% if filtro_form.cleaned_data.de and  filtro_form.cleaned_data.ate %}
 							<center>
-								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</h6>
+								<h5><b>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA NO PERIODO DE: {{filtro_form.cleaned_data.de|date:"d.m.y" }} a {{filtro_form.cleaned_data.ate|date:"d.m.y" }}</b></h5>
 							</center>
 						{% else %}
 							<center>
-								<h6>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA</h6>
+								<h5><b>RELATÓRIO DAS HORAS ACUMULADAS/COMPENSADA</b></h5>
 							</center>
 						{% endif %}
 					</div>
@@ -88,9 +88,9 @@
 	{% if total_hours %}
 	<div class="row">
 		<div class="col-md-12">
-			<h4>Horas Extras</h4>
+			<h4 class="tit-table">Horas Extras</h4>
 			
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
+			<table class="table table-hover table-bordered-d print-data small-padding center center-total">
 				<thead>
 					<tr>
 						<td width="20"><strong>Data</strong></td>
@@ -113,13 +113,10 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class="row">
-
-		<div class="col-md-12">
-			<h4>Horas Compensadas</h4>
+		<div class="col-md-12 dist-tit-table">
+			<h4 class="tit-table">Horas Compensadas</h4>
 			
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
+			<table class="table table-hover table-bordered-d print-data small-padding center center-total">
 				<thead>
 					<tr>
 						<td width="10"><strong>Data</strong></td>
@@ -136,19 +133,16 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-
-	<div class="row">
 		
-		<div class="col-md-12">
-			<h4>Informações</h4>
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
+		<div class="col-md-12 dist-tit-table">
+			<h4 class="tit-table">Informações</h4>
+			<table class="table table-hover table-bordered-d print-data small-padding center center-total">
 				<thead>
 					<tr>
-						<td><strong>Hrs Extras Totais</strong></td>
-						<td><strong>Hrs Extras Filtro</strong></td>
-						<td><strong>Hrs Compensadas Totais</strong></td>
-						<td><strong>Hrs Compensadas Filtro</strong></td>
+						<td><strong>Hrs Extras <br> Totais</strong></td>
+						<td><strong>Hrs Extras <br> Filtro</strong></td>
+						<td><strong>Hrs Compensadas <br> Totais</strong></td>
+						<td><strong>Hrs Compensadas <br> Filtro</strong></td>
 						<td><strong>Saldo Total</strong></td>
 						<td><strong>Saldo Filtro</strong></td>
 					</tr>
