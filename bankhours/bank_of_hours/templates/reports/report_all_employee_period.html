@@ -85,18 +85,18 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-hover table-bordered print-data small-padding center center-total">
+			<table class="table table-bordered-d table-striped-d print-data small-padding center center-total">
 				<thead>
 					<tr class="tit-tr-normal">
-						<td width="80"><strong>Funcionário</strong></td>
-						<td width="60"><strong>Banco de Horas</strong></td>
-						<td width="60"><strong>Horas Compensadas</strong></td>
-						<td width="20"><strong>Saldo</strong></td>
+						<th width="40%"><strong>Funcionário</strong></th>
+						<th width="20%"><strong>Banco de Horas</strong></th>
+						<th width="30%"><strong>Horas Compensadas</strong></th>
+						<th width="20%"><strong>Saldo</strong></th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for employee in employees %}
-					<tr class="{% cycle '' 'well' %}">
+					<tr>
 						<td align="left">{{ employee.name }}</td>
 						<td>{{ employee.cumulative_hours }}</td>
 						<td>{{ employee.amount_of_hours }}</td>

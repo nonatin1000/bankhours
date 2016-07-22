@@ -165,7 +165,7 @@ body { padding-top: 50px; }
   text-transform: uppercase;
 }
 
-.tit-tr-normal{
+.tit-tr-normal, .tit-tr-normal th{
   padding: 5px 5px 4px 4px; 
   text-align: center;
   margin: 0;
@@ -189,4 +189,9 @@ body { padding-top: 50px; }
 .table-bordered-d > tbody > tr > td,
 .table-bordered-d > tfoot > tr > td {
   border: 1px dashed #ddd;
+}
+
+.table-striped-d > tbody > tr:nth-child(odd) > td,
+.table-striped-d > tbody > tr:nth-child(odd) > th {
+  background-color: #dedede;
 }
